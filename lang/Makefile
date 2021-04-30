@@ -1,7 +1,12 @@
+.SILENT:
 all:main
 	./main
+	rm main
 
-vpath %.c glibc
+# vpath %.c glibc
 
-main:crypto.c
+main:main.c
 	cc -o $@ $<
+
+ass:main.c
+	gcc -S main.c

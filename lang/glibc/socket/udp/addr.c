@@ -9,8 +9,9 @@ struct sockaddr* create_internet_address(){
     static struct sockaddr_in addr;
     //initialize addr
     addr.sin_family = AF_INET;  //ipv4 family
-    addr.sin_port = htons(1000);    //port
-    addr.sin_addr.s_addr = htonl(INADDR_ANY);   //ip address - loopback i.e. 127.0.0.1 here
+    addr.sin_port = htons(3000);    //port
+    //TODO: INADDR_LOOPBACK vs INADDR_ANY differences
+    addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);   //ip address - loopback i.e. 127.0.0.1 here
 
     //cast internet address to generalized address
     return (struct sockaddr*)&addr;

@@ -1,10 +1,10 @@
-## namespace, communucation style, protocol:
-**communication style:**  
+## namespace, communication style, protocol:
+**communication style/type of socket**  
 way of sending data over internet   
 SOCK_STREAM - sending stream of bytes  
 SOCK_DGRAM - datagram or chunk of bytes are send  
 SOCK_RAW - raw socket  
-**namespace:**  
+**namespace/domain**  
 local namespaces - this are used local communication in same computer
 PF_LOCAL, PF_UNIX, PF_FILE  
 internet namespaces -  
@@ -39,15 +39,15 @@ inet_ntoa()
 ## byte order:
 different computers/processors uses different endianness to store data - 1. big endian 2. little endian  
 we use big endianess for working over internet   
-so we might need to convert bytes to big endian if not already in that format
+so we might need to convert bytes to big endian (network byte order) if not already in that format - as address (ip and port) will be sent over network
 netinet/in.h  
 provides functons to do so  
 htons()  
 htonl() etc  
 
-## protocal datbases:
-usually we use default protocal  
-if we need any existing/possible protocal to be used  
+## protocol datbases:
+usually we use default protocol  
+if we need any existing/possible protocol to be used  
 TODO: write how we can do so 
 
 ## host names:
@@ -59,10 +59,12 @@ converting say "www.google.co.in" to ip_address form
 server side calls:  
 socket(), bind(), listen(), accept(), read()/write(), close()  
 client side calls:  
+TODO: since no bind call is made what address the socket will get here  
 socket(),connect(),write()/read(), close()
 
 **for UDP:**  
 server side calls:  
 socket(), bind(), recvfrom(), sendto(), close()  
 client side calls:   
+TODO: since no bind call is made what address the socket will get here  
 socket(), recvfrom(), sendto(), close()

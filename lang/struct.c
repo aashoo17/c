@@ -31,12 +31,35 @@ manipulating struct by passing it to function = as pointer and as copy
 
 //structure declaration
 struct Human{
-    char name[40];
+    char name[100];
     int age;
 };
 
-//passing struct around in functions as pointer and as copy/value
+//initialize struct
+void initialize(){
+    //struct initialization
+    //use of structure allocating on stack
+    struct Human h;
+    //access fields
+    strcpy(h.name,"Some Random Name");
+    h.age = 20;
 
+    //allocation on heap and initialization
+    struct Human *h1 = malloc(sizeof(struct Human));
+    //access fields
+    strcpy(h1->name,"Another name");
+    h1->age = 20;
+
+    //using struct literal for initialization
+    struct Human h2 = {"some name",20};
+    //struct literal out of order initialization
+    struct Human h3 = {.age = 20, .name = "Some name"};
+
+    //pointer to struct
+    struct Human *h4 = &h2;
+}
+
+//passing struct around in functions as pointer and as copy/value
 //using pointer to change a struct
 void change_struct(struct Human *h){
     strcpy(h->name,"Some other changed name");
@@ -44,6 +67,8 @@ void change_struct(struct Human *h){
 }
 
 //passing pointer as read only
+//struct which will be passed may not be const
+//const in function argument says that function can not modify underlying data
 void read_only_struct(const struct Human *h){
     //get the age in another variable
     int a = h->age;
@@ -67,21 +92,26 @@ struct Human change_struct_without_pointer(struct Human h){
     return h;
 }
 
-//assign to previous struct in main
+/*
+flexible array member in struct
+last member will be array but size not given so it is flexible can be as big as required later
+so stack allocation will not allocate any memory for this flexible array field
+so we have to use heap allocation through malloc only for it to work
+*/
+struct flex{
+    int count;
+    double avg;
+    double scores[];    //size for this array may be ommited
+};
+
+//doing allocation for flexible array
+void flex_allocation(){
+    //allocated 10 double extra memory which will be used for scores field
+    struct flex* f = malloc(sizeof(struct flex) + sizeof(double) * 10);
+    //now access scores and fill them
+    f->scores[2] = 10.0;
+}
 
 int main(){
-    // use of structure allocating on stack
-    struct Human h;
-    strcpy(h.name,"Some Random Name");
-    h.age = 20;
-
-    //allocation on heap and initialization
-    struct Human *h1 = malloc(sizeof(struct Human));
-    strcpy(h1->name,"Another name");
-    h1->age = 20;
-
-    //using struct literal for initialization
-    struct Human h2 = {"some name",20};
-    //struct literal out of order initialization
-    struct Human h3 = {.age = 20, .name = "Some name"};
+   
 }
