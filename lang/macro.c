@@ -15,8 +15,9 @@ to undefine macrk use this
 if macro is required to give new value undefine and then use #define again
 */
 
-#define MACRO_IS_DEFINED        //define a macro
-#define ANOTHER_MACRO 10        //define macro and give some value
+#define MACRO_IS_DEFINED //define a macro
+//TODO: use of #define over const. when ?
+#define ANOTHER_MACRO 10 //define macro and give some value
 
 /*
 caveats with function like macro:
@@ -31,9 +32,9 @@ int x = 2;
 MUTLI(x+3) => I may expect 25 again but see the answer
 MUTLI(x+3) converts to x+3*x+3 => 2+3*2+3 => 11 so we get 11
 so to avoid this we have to explicit brackets () where expression is expected in macro
+TODO: is after inline functions function like maro is dead
 */
-#define MAX(X, Y) X > Y ? 1 : 0     //function like macro
-
+#define MAX(X, Y) X > Y ? 1 : 0 //function like macro
 
 #undef ANOTHER_MACRO_DEFINED
 
@@ -46,17 +47,18 @@ this includes all the contents of a file in the file #include is declared
 
 //common way files are included checking a macro
 #ifndef MACRO_IS_DEFINED
-    #define MACRO_IS_DEFINED
-    #include <string.h>
+#define MACRO_IS_DEFINED
+#include <string.h>
 #endif
 
 //a struct whose one field is optional and appears only when this macro MACRO_IS_DEFINED is defined
-struct Human{
+struct Human
+{
     int a;
     int b;
-    #ifdef MACRO_IS_DEFINED
-    char name[100];     //this field is avilable only when macro is defined
-    #endif
+#ifdef MACRO_IS_DEFINED
+    char name[100]; //this field is avilable only when macro is defined
+#endif
 };
 
 //usual include call
@@ -70,19 +72,19 @@ these work exactly like if else if and else in c code
 int x = 0;
 //TODO: can #if use regular varibale instead of macro for true/false testing
 //FIXME: fix the error here
-#if ANOTHER_MACRO == 20
-    printf("%d",x);
-#elif ANOTHER_MACRO == 10
-    printf("%d",x);
-#else
-    printf("%d",x);
-#endif
+// #if ANOTHER_MACRO == 20
+//     printf("%d",x);
+// #elif ANOTHER_MACRO == 10
+//     printf("%d",x);
+// #else
+//     printf("%d",x);
+// #endif
 
 /*
 #line #error #pragma
 */
-#line 10    //set this line no as 10
-#pragma c9x on      //enable/disable a compiler deature using pragma macro
+#line 10       //set this line no as 10
+#pragma c9x on //enable/disable a compiler deature using pragma macro
 
 // #error big_error //throw error using preprocessor
 
@@ -95,3 +97,13 @@ __STDC__
 __STDC_VERSION__
 __TIME__
 */
+
+void predefined_macros()
+{
+    printf("%s\t %s\t %lu\t %s", __DATE__, __FILE__, __STDC_VERSION__, __TIME__);
+}
+
+int main()
+{
+    predefined_macros();
+}

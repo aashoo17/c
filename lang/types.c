@@ -1,16 +1,23 @@
 /*
+what does it mean to have types like int,float,char...etc processor doesn't have meaning of type
+why concept of signed and unsigned 
+int a = 10;  => see the assembly code what does it mean for processor
+all the basic c types does not allow aliasing when assigned they do explicit copy so they allow one owner only except for pointer
+but we know processor only supports memory address in RAM through MAR (memory address register) so how variables are designed over address/pointer
+
+pointer give aliasing access same memory through multiple variables
+*/
+
+/*
+TODO: move these topics in notes
 integers:
 representation of integer in binary form:
 why 2's complement is used for negative no
 how processor knows if we are adding signed nos or unsigned nos
 do they use different opcode for signed/unsigned types
+multiplication and divison has different opcode 
 or 2's complement is such that adding/substracting them when signed types are there
 and when unsigned types are there processor yields same result which works for both
-for e.g.
-10 and -10 in binary are in 2's complement 00000110 & 11111010
-adding them will result in 0 in binary i should get  00000000
-if 00000110 & 11111010 and both were unsigned 10 and ....some other value... and adding them processor gives back 00000000 (i.e. zero)
-it is not possible naa so how signed/unsigned operation differ at processor level
 
 integer overflow:
 */
@@ -18,7 +25,7 @@ integer overflow:
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <inttypes.h>
+#include <inttypes.h> //this includes stdint.h by default so we may skip borrowing it
 
 /*
 integer min sizes - for portability
@@ -26,7 +33,8 @@ implcit integer conversion rule
 TODO: why L, LL, UL, ULL etc is used
 */
 
-void integer() {
+void integer()
+{
   //signed integers
   signed char a = 10; // char - 1 byte
   short b = 10;       // short - 2 byte
@@ -34,7 +42,7 @@ void integer() {
   long d = 10L;       // long - min 4 byte
   long long e = 10LL; // long long - min 8 byte
 
-  // unsigned counter parts
+  //unsigned counter parts
   unsigned char f = 10;
   unsigned short g = 10;
   unsigned int h = 10;
@@ -51,7 +59,8 @@ void integer() {
 }
 
 // fixed integers types
-void fixed_integer_types() {
+void fixed_integer_types()
+{
   // signed types
   int8_t a = 10;
   int16_t b = 10;
@@ -68,17 +77,35 @@ void fixed_integer_types() {
   uintptr_t i = 10;
 
   //TODO: using inttypes.h with stdint.h types
-  printf("%"PRId32,a);
+  printf("%" PRId32, a);
 }
 
-// floats
-void float_types() {
+/*
+floats:
+how floats are represented at processor level - why IEEE-754 standard got most acceptance
+all about float precison thing - why floats are not reflexive (a == a)
+special registers for float operation 
+why floats are not used in kernel usually
+underflow, overflow, subnormal, NaN in floats
+*/
+void float_types()
+{
   float a = 10;
   double b = 10;
 }
 
-// bools
-void bool_types() {
+/*
+bool:
+so C was not having bool at its core it was thought as 0 and 1 only
+so ==, !=, < , <= , >, >= etc will return 0 or 1
+even c allows something called truthy and falsy (welcome javascript) 
+so bool need only a bit to represent but processor usually work with byte and then there is getting address - so how c handles it
+whats up with _Bool (not bool used without stdbool.h)
+
+*/
+void bool_types()
+{
+  //using stdbool
   bool a = true;
   bool b = false;
 
@@ -86,24 +113,31 @@ void bool_types() {
   _Bool c = true;
 }
 
-// chars
-void char_types() {
+/*
+char:
+ascii at C's core - representing chars as integers
+how can unicode can be used in c (especially utf-8)
+what is null byte in char
+*/
+void char_types()
+{
   char a = 'A';
   char b = '\0';
 }
 
 //printing integer, float, char, bool types
-void print(){
+void print()
+{
   int a = 10;
-  printf("%04d\n",a);
   float b = 10.1;
-  printf("%06.2f\n",b);
   char c = 'A';
-  printf("%c\n",c);
   bool d = true;
-  printf("%d\n",d);
+
+  //how printf is variadic - is it macro or function
+  printf("%04d %06.2f %c %d\n", a, b, c, d);
 }
 
-int main(){
+int main()
+{
   print();
 }

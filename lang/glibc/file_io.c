@@ -11,7 +11,7 @@ void file_pointer(){
     fclose(f);
 }
 
-//low level fd
+//low level fd non portable
 void fd_based_io(){
     int fd = open("file.txt",O_WRONLY | O_CREAT);
 
