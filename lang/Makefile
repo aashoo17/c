@@ -5,5 +5,5 @@ all:main
 
 # vpath %.c glibc
 
-main:macro.c
+main:types.c
 	cc -o $@ $<

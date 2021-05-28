@@ -13,9 +13,9 @@ TODO: move these topics in notes
 integers:
 representation of integer in binary form:
 why 2's complement is used for negative no
-how processor knows if we are adding signed nos or unsigned nos
+how processor knows if we are adding/substracting signed nos or unsigned nos
 do they use different opcode for signed/unsigned types
-multiplication and divison has different opcode 
+multiplication and division has different opcode 
 or 2's complement is such that adding/substracting them when signed types are there
 and when unsigned types are there processor yields same result which works for both
 
@@ -45,7 +45,7 @@ void integer()
   //unsigned counter parts
   unsigned char f = 10;
   unsigned short g = 10;
-  unsigned int h = 10;
+  unsigned h = 10;    //unsigned int and unsigned are same type
   unsigned long i = 10UL;
   unsigned long long j = 10ULL;
 
@@ -74,16 +74,16 @@ void fixed_integer_types()
   uint64_t h = 10;
 
   // enough to store pointer size - 32/64 bit based on platform
-  uintptr_t i = 10;
+  uintptr_t i = (uintptr_t)&a;
 
   //TODO: using inttypes.h with stdint.h types
-  printf("%" PRId32, a);
+  printf("%" PRId32 "%ld", a,i);
 }
 
 /*
 floats:
 how floats are represented at processor level - why IEEE-754 standard got most acceptance
-all about float precison thing - why floats are not reflexive (a == a)
+all about float precision thing - why floats are not reflexive (a == a)
 special registers for float operation 
 why floats are not used in kernel usually
 underflow, overflow, subnormal, NaN in floats
@@ -125,8 +125,11 @@ void char_types()
   char b = '\0';
 }
 
-//printing integer, float, char, bool types
-void print()
+/*
+printing integer, float, char, bool types
+
+*/
+void printing()
 {
   int a = 10;
   float b = 10.1;
@@ -139,5 +142,5 @@ void print()
 
 int main()
 {
-  print();
+  fixed_integer_types();
 }
