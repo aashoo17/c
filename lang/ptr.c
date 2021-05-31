@@ -12,7 +12,7 @@ void ptr_basics(){
     //create
     int a = 10;
     int* b = &a;
-    //int *b1 = &10;    //this is not poosible in c
+    //int *b1 = &10;    //this is not possible in c - as c does not allow taking literal address
 
     //deref 
     *b = 20;
@@ -61,12 +61,14 @@ void ptr_basics(){
     /*
     void**
     this will mean we can keep pointer of arrays but these pointer can be to any type
-    int** resticts that all pointer should be of memory to int* only (i.e. ints)
+    int** restricts that all pointer should be of memory to int* only (i.e. ints)
     since now we know these double pointers keep array of memory
     we can allow pointer arithmetic on void** or int**
     cause they will move by either 4/8 only
     */
 }
+
+//TODO: function pointer
 
 int main(){
     ptr_basics();

@@ -7,11 +7,11 @@ one thing I know is const being variable can be scoped so same name const can be
 #define is visible in entire file
 
 function like macro are replacement for functions as macros are inlined and if fuction call is made lot of time
-thet will have lot of overhead of calling function creating stack then freeing stack etc..(all the things of function)
+that will have lot of overhead of calling function creating stack then freeing stack etc..(all the things of function)
 now we have inlined function also so are function like macros still useful
 
 #undef
-to undefine macrk use this
+to undefine macro use this
 if macro is required to give new value undefine and then use #define again
 */
 
@@ -29,10 +29,10 @@ MULTI(5) => I get expected result as 25
 but what if I do this
 a variable x defined like this
 int x = 2;
-MUTLI(x+3) => I may expect 25 again but see the answer
-MUTLI(x+3) converts to x+3*x+3 => 2+3*2+3 => 11 so we get 11
+MULTI(x+3) => I may expect 25 again but see the answer
+MULTI(x+3) converts to x+3*x+3 => 2+3*2+3 => 11 so we get 11
 so to avoid this we have to explicit brackets () where expression is expected in macro
-TODO: is after inline functions function like maro is dead
+TODO: is after inline functions function like macro is dead
 */
 #define MAX(X, Y) X > Y ? 1 : 0 //function like macro
 
@@ -57,7 +57,7 @@ struct Human
     int a;
     int b;
 #ifdef MACRO_IS_DEFINED
-    char name[100]; //this field is avilable only when macro is defined
+    char name[100]; //this field is available only when macro is defined
 #endif
 };
 
@@ -70,7 +70,7 @@ struct Human
 these work exactly like if else if and else in c code
 */
 int x = 0;
-//TODO: can #if use regular varibale instead of macro for true/false testing
+//TODO: can #if use regular variable instead of macro for true/false testing
 //FIXME: fix the error here
 // #if ANOTHER_MACRO == 20
 //     printf("%d",x);

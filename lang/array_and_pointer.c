@@ -16,7 +16,7 @@ void array_declaration_initialization(){
     int d[] = {10,20,30,40,50};
 
     //designated initializer - this will let you initialize particular element even out of order
-    //intialize 10th element as 100
+    //initialize 10th element as 100
     int e[] = {[10] = 100};
 
     //assignment of arrays

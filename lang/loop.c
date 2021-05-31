@@ -14,5 +14,4 @@ int main(){
     {
         printf("%lu ",i);
     }
-    
 }

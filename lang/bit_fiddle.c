@@ -45,8 +45,8 @@ void bit_field()
 {
     Ash ash;
 
-    ash.age = 0b0110; //isn't is better to set bitfield in binary so we can see each bit value set
+    ash.age = 0b0110; //isn't is better to set bitfield in binary so we can visually see each bit value set
     ash.flags = 0b10;
-    ash.random = 0b1;
-    ash.random2 = 0b10;
+    ash.random = 1;
+    ash.random2 = 2;
 }

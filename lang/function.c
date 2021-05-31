@@ -2,8 +2,8 @@
 //function 
 //argument passed
 //return type
-void call(int x){
-
+int call(int x){
+    return 10;
 }
 
 int main(){

@@ -5,5 +5,5 @@ all:main
 
 # vpath %.c glibc
 
-main:types.c
+main:array.c
 	cc -o $@ $<

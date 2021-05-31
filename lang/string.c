@@ -2,11 +2,11 @@
 #include <string.h>
 #include <stdlib.h>
 
-int main(){
+void srring_basics(){
+    //string - array of characters 
     char a[] = "Hello World";   //we can write as {'H','e','l'.......,'\0'} also
 
     //use string functions to operate on them
-
     //strcpy
     char b[100];
     strcpy(b, a);
@@ -28,6 +28,6 @@ int main(){
 
     //heap based
     char *d = malloc(100);
-    //non modifiable - stored in binary
+    //non modifiable - stored in executable binary
     char *e = "Hello there";
 }

@@ -18,7 +18,7 @@ void process_create(){
     puts("Hello World");
 }
 
-//load differnt program for execution by exec() family
+//load different program for execution by exec() family
 void exec_use(){
     pid_t pid = fork();
     //let child process run ls command

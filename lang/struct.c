@@ -101,7 +101,7 @@ so we have to use heap allocation through malloc only for it to work
 struct flex{
     int count;
     double avg;
-    double scores[];    //size for this array may be ommited
+    double scores[];    //size for this array may be omitted
 };
 
 //doing allocation for flexible array
