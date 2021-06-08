@@ -22,14 +22,17 @@ union UN{
     int age;
 };
 
+//typedef union
+typedef union UN UN;
+
 int main(){
     union UN u;
     u.age = 20;
 
     //now here we are knowing that int age is stored inside the union using it as char array will lead to some kind of error later
-    printf("%d\n",u.age);  
+    printf("%d\n", u.age);
     //now char array is being stored
-    strcpy(u.name,"Some name");
+    strcpy(u.name, "Some name");
     //use the union for anything char array can be use for
-    printf("%s\n",u.name);
+    printf("%s\n", u.name);
 }

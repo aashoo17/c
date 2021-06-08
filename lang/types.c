@@ -1,6 +1,5 @@
 #include <inttypes.h> //this includes stdint.h by default so we may skip including stdint.h it
 #include <stdbool.h>
-#include <stdint.h>
 #include <stdio.h>
 
 /*

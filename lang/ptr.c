@@ -11,33 +11,33 @@ int**, void** etc
 void ptr_basics(){
     //create
     int a = 10;
-    int* b = &a;
+    int *b = &a;
     //int *b1 = &10;    //this is not possible in c - as c does not allow taking literal address
 
-    //deref 
+    //deref
     *b = 20;
 
     //pointer arithmetic
-    printf("%p\n",b);
+    printf("%p\n", b);
     //adding 2 to ptr will move it here by 4*2 bytes
-    printf("%p\n",b + 2);
+    printf("%p\n", b + 2);
     //similarly adding 6 will move 4*6
-    printf("%p\n",b + 6);
+    printf("%p\n", b + 6);
 
     //void*
     //this can be used for generics keep any pointer type pointed using void*
     //but when deref is used we need to cast
     //i don't see any void* uses people use MACRO for such requirement
-    void* c = &a;
+    void *c = &a;
     //if deref is required cast to to some typed pointer type
-    *(int*)c = 30;
+    *(int *)c = 30;
     /*
     NULL
     0 is NULL - some do define as (void*)0
     eventually this means if we assign 0 to pointer all 4/8 bytes(based on platform 32/64 bit) of pointer are filled with 0 bits
     00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 = on 64 bit platform
     */
-    int* d = 0;
+    int *d = 0;
     /*
     int**, void**
     take the pointer to pointer
@@ -57,7 +57,7 @@ void ptr_basics(){
     int h = 200;
     //all e,f,g,h are stored somewhere in memory
     //but we can keep pointer to them 1 after another as array
-    int* i[] = {&e,&f,&g,&h};
+    int *i[] = {&e, &f, &g, &h};
     /*
     void**
     this will mean we can keep pointer of arrays but these pointer can be to any type

@@ -98,12 +98,10 @@ __STDC_VERSION__
 __TIME__
 */
 
-void predefined_macros()
-{
+void predefined_macros(){
     printf("%s\t %s\t %lu\t %s", __DATE__, __FILE__, __STDC_VERSION__, __TIME__);
 }
 
-int main()
-{
+int main(){
     predefined_macros();
 }
