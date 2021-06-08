@@ -2,25 +2,26 @@
 #include <string.h>
 #include <stdlib.h>
 
-void srring_basics(){
-    //string - array of characters 
-    char a[] = "Hello World";   //we can write as {'H','e','l'.......,'\0'} also
+void srring_basics()
+{
+    //string - array of characters
+    char a[] = "Hello World"; //we can write as {'H','e','l'.......,'\0'} also
 
     //use string functions to operate on them
     //strcpy
     char b[100];
     strcpy(b, a);
-    printf("%s\n",b);
+    printf("%s\n", b);
 
     //strlen
-    printf("%ld\n",strlen(a));
+    printf("%ld\n", strlen(a));
 
     //strcmp
-    printf("%d\n",strcmp(b, a));
+    printf("%d\n", strcmp(b, a));
 
     //strcat
     strcat(b, a);
-    printf("%s\n",b);
+    printf("%s\n", b);
 
     //all possible string types
     //stack based

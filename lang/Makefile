@@ -4,7 +4,7 @@ all:main
 	rm main
 
 # vpath %.c glibc
-file=struct.c
+file=loop.c
 
 main:$(file)
 	$(CC) -o $@ $<

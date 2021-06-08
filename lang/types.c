@@ -8,7 +8,8 @@ implcit integer conversion rule
 TODO: why L, LL, UL, ULL etc is used
 */
 
-void integer() {
+void integer()
+{
   // signed integers
   signed char a = 10; // char - 1 byte
   short b = 10;       // short - 2 byte
@@ -30,7 +31,8 @@ void integer() {
 }
 
 // fixed integers types
-void fixed_integer_types() {
+void fixed_integer_types()
+{
   // signed types
   int8_t a = 10;
   int16_t b = 10;
@@ -50,30 +52,31 @@ void fixed_integer_types() {
   printf("%" PRId32 "%ld", a, i);
 }
 
-
-void explicit_conversion(){
+void explicit_conversion()
+{
   float d = 10.1;
   // explicit integer conversion
   int n = (int)d;
 }
 
 //TODO: implicit conversion in c
-void implicit_conversion(){
-
+void implicit_conversion()
+{
 }
 
-void float_types() {
-  float a = 10;   //single precision 
-  double b = 10;  //double precision
+void float_types()
+{
+  float a = 10;  //single precision
+  double b = 10; //double precision
 }
 
-
-void bool_types() {
+void bool_types()
+{
   // using stdbool
   bool a = true;
   bool b = false;
 
-  // if stdbool is not used
+  // if stdbool.h is not used
   _Bool c = true;
 }
 
@@ -83,15 +86,17 @@ ascii at C's core - representing chars as integers
 how can unicode can be used in c (especially utf-8)
 what is null byte in char
 */
-void char_types() {
+void char_types()
+{
   char a = 'A';
-  char b = '\0';    //null byte
+  char b = '\0'; //null byte
 }
 
 /*
 printing integer, float, char, bool types
 */
-void printing() {
+void printing()
+{
   int a = 10;
   float b = 10.1;
   char c = 'A';
@@ -101,6 +106,6 @@ void printing() {
   printf("%04d %06.2f %c %d\n", a, b, c, d);
 }
 
-//other types like - pointer, struct, union, enum etc.. will be covered seperately  
+//other types like - pointer, struct, union, enum etc.. will be covered seperately
 
 int main() { fixed_integer_types(); }

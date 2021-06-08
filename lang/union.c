@@ -17,7 +17,8 @@ stored for int and we are say using as char array
 #include <stdio.h>
 #include <string.h>
 
-union UN{
+union UN
+{
     char name[40];
     int age;
 };
@@ -25,7 +26,8 @@ union UN{
 //typedef union
 typedef union UN UN;
 
-int main(){
+int main()
+{
     union UN u;
     u.age = 20;
 

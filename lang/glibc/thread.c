@@ -42,8 +42,6 @@ void thread_using_mutex(){
     //TODO: call thrd_sleep() to wait for few seconds so that created thread can be executed before main thread exits
 }
 
-
-
 int main(){
     thread_using_mutex();
 }
