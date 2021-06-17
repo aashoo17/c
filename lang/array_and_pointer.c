@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-void array_declaration_initialization()
-{
+void array_declaration_initialization(){
     //declaration
     int a[10];
     float b[10];
@@ -31,8 +30,7 @@ void array_declaration_initialization()
 //unary operator with same precedence used on same operand - so that associativity can be checked for unary ops
 //e.g. things like *start++ over a pointer
 
-void unary_operator_with_same_precedence()
-{
+void unary_operator_with_same_precedence(){
     //why int a[] = {10,20,...}; is not used here
     //because then *++a can not be applied with error a is array type
     int *a = malloc(sizeof(int) * 10);
@@ -57,14 +55,14 @@ void unary_operator_with_same_precedence()
     assert(b == 20);
 }
 
-void passing_array_as_arg()
-{
+void passing_array_as_arg(){
+
 }
 
-void use_passing_array_function()
-{
+void use_passing_array_function(){
+
 }
 
-int main()
-{
+int main(){
+    
 }

@@ -7,7 +7,8 @@ process:
 fork() will create a new process
 fork() returns in child pid in parent process and 0 in child process
 fork() may fail so error handling should be given
-after fork() call both parent and child process have loaded the same program so they will start same command/lines in code after fork
+after fork() call both parent and child process have loaded the same program so they will start
+same command/lines in code after fork
 generally exec() family is called to load the child process with different program to execute
 */
 

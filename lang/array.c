@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void array()
-{
+void array(){
     //create x on stack and x is pointer to first elm
     int a[] = {1, 2, 3, 4};
 
@@ -36,8 +35,7 @@ void array()
 
     //heap based array
     int *i = malloc(sizeof(int) * 5);
-    for (size_t j = 0; j < 5; j++)
-    {
+    for (size_t j = 0; j < 5; j++){
         i[j] = 10 + j;
     }
 }

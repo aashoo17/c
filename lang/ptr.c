@@ -8,8 +8,7 @@ NULL
 int**, void** etc
 */
 
-void ptr_basics()
-{
+void ptr_basics(){
     //create
     int a = 10;
     int *b = &a;
@@ -71,7 +70,6 @@ void ptr_basics()
 
 //TODO: function pointer
 
-int main()
-{
+int main(){
     ptr_basics();
 }

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <string.h>
+#include <string.h>     //string functions
 
 //string functions
 void string_functions(){
@@ -25,7 +25,8 @@ void mem_functions(){
     printf("%d\n",memcmp(b, a,strlen(a)));
     //get length
     size_t len = strlen(a);
-    memmove(b, a, len);   //this should be used when memory is overlapped by two variables, though works if not overlapped too
+    //this should be used when memory is overlapped by two variables, though works if not overlapped too
+    memmove(b, a, len);   
     puts(b);
     memset(b, 81, sizeof(a));
     puts(b);

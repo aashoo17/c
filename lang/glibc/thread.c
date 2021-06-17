@@ -1,8 +1,9 @@
 #include <stdio.h>
-#include <threads.h>
+#include <threads.h>    //ISO-C std threads
 
+//thrd_start_t => int (*) (void *) this function pointer is passed to thread for execution
 int run_func(void* x){
-    puts("Hello World");
+    puts("Hello World from thread");
     return 0;
 }
 
@@ -11,8 +12,9 @@ int run_func2(){
     mtx_t mux;
     mtx_init(&mux, mtx_plain);
     mtx_lock(&mux);
-    //critical section of code
+    //critical section of code - which two thread should not access together
     puts("Hello critical section");
+    
     mtx_unlock(&mux);
     mtx_destroy(&mux);
     return 0;
@@ -43,5 +45,5 @@ void thread_using_mutex(){
 }
 
 int main(){
-    thread_using_mutex();
+    thread_create();
 }

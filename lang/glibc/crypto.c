@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <unistd.h>     //this also have definition of crypt()
+#include <unistd.h>     //this also have definition of crypt() - crypt.h can aslo be used
 // #include <crypt.h>   //this can also be used for crypt()
 #include <sys/random.h>     //for getting random data
 #include <string.h>
@@ -53,21 +53,22 @@ void random_data_buffer(){
 }
 
 void crypto_hash(){
+    //TODO: use previously generated hash for salt
     //sha-2-512
     char *a = crypt("Hello World","$6$");
     //sha-2-256
     char *b = crypt("Hello World","$5$");
     //md5
     char *c = crypt("Hello World","$1$");
-    //TODO: is a,b,c are here static allocation that means they live till program does not exit
-    //TODO: what type of char* returned by crypt() - lifetime of this pointer (where it is stored)
+    //TODO: error handling - NULL or * based printable ascii is returned , how can we handle the error
+    //a,b,c are here static allocation that means they live till program does not exit
     printf("%s\n%s\n%s\n",a,b,c);
 }
 
 int main(){
     //TODO: try to use random funcction provided by glibc to use as salt
     // random_data_buffer();
-    crypto_hash();
+    random_data_buffer();
 }
 
 //TODO: what about rsa and ed25519 in c

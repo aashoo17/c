@@ -2,13 +2,11 @@
 //function
 //argument passed
 //return type
-int call(int x)
-{
+int call(int x){
     return 10;
 }
 
-int main()
-{
+int main(){
     //calling function
     call(10);
 }

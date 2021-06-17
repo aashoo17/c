@@ -15,6 +15,7 @@ to undefine macro use this
 if macro is required to give new value undefine and then use #define again
 */
 
+//TODO: if macro id defined without giving any value what is it replaced with
 #define MACRO_IS_DEFINED //define a macro
 //TODO: use of #define over const. when ?
 #define ANOTHER_MACRO 10 //define macro and give some value
@@ -52,8 +53,7 @@ this includes all the contents of a file in the file #include is declared
 #endif
 
 //a struct whose one field is optional and appears only when this macro MACRO_IS_DEFINED is defined
-struct Human
-{
+struct Human{
     int a;
     int b;
 #ifdef MACRO_IS_DEFINED
@@ -84,7 +84,7 @@ int x = 0;
 #line #error #pragma
 */
 #line 10       //set this line no as 10
-#pragma c9x on //enable/disable a compiler deature using pragma macro
+#pragma c9x on //enable/disable a compiler feature using pragma macro
 
 // #error big_error //throw error using preprocessor
 
@@ -98,12 +98,10 @@ __STDC_VERSION__
 __TIME__
 */
 
-void predefined_macros()
-{
+void predefined_macros(){
     printf("%s\t %s\t %lu\t %s", __DATE__, __FILE__, __STDC_VERSION__, __TIME__);
 }
 
-int main()
-{
+int main(){
     predefined_macros();
 }
