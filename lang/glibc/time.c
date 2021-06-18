@@ -10,13 +10,25 @@ all computers has an in-built clock which is set to give value in seconds (even 
 epoch (1st Jan 1970 at 00:00:00 hrs)
 this clock will keep on increasing over the time
 
+TODO: do the cpu has two clocks
+1. for measuring time
+2. clock for synchronizing cpu execution
+
+TODO: how the time measuring clock works
+[Real-time clock](https://en.wikipedia.org/wiki/Real-time_clock)  
+[How the modern world keeps track of time - An introduction to crystal oscillators](https://www.youtube.com/watch?v=fPKdDCiJDok)
+[How a quartz watch works - its heart beats 32,768 times a second](https://www.youtube.com/watch?v=_2By2ane2I4)
+quartz oscillator:
+piezoelectric effect:
+flip flops:
+
 Calendar time:
 conversion of these seconds in wall clock time - hrs:min:sec + day, month, year
 then we have programs to convert these seconds into GMT or your local time zone
 [timezones explained](https://www.youtube.com/watch?v=viyERCiHgj0)
 
 usually this computer clock is very precise but it is possible it will not match with others for some reason
-or you want another clock as sorce of truth say another computer on internet to be used for 
+or you want another clock as source of truth say another computer on internet to be used for 
 getting the current time and date
 so OS provides flexibility to do so as per convenience and can modify calendar time as per requirement
 
@@ -27,12 +39,12 @@ waiting on external events is not counted in cpu tike waiting for IO etc..
 so at some time say clock gives 100 second then later it is 120 seconds = time used is 20 seconds
 so clocks ticks faster than a second may be 10^9 times in a second 
 so clock() call gives clock ticks (cpu cycles) at that time from when cpu started this current process
-call clock() again to get the total ticks till now and sustract from previos one to get the ticks 
+call clock() again to get the total ticks till now and substract from previos one to get the ticks 
 made in part of code execution 
 if we know clock ticks per second divide the result by it to get the actual time in seconds
 
 processor time:
-it calculates all times even waiing for IO etc for some code execution
+it calculates all times even waiting for IO etc for some code execution
 
 */
 
