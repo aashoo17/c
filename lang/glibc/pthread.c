@@ -11,7 +11,7 @@ void* run2(void* x){
 	pthread_mutex_init(&t1, NULL);
 	pthread_mutex_lock(&t1);
 
-	//crtical section
+	//critical section
 	puts("Hello Pthread");
 
 	pthread_mutex_unlock(&t1);

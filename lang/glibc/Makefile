@@ -4,7 +4,7 @@ all:main
 	rm main
 
 # vpath %.c glibc
-file=time.c
+file=process.c
 
 main:$(file)
 	$(CC) -o $@ $<
