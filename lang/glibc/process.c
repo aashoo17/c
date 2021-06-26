@@ -21,29 +21,40 @@ void process_create(){
 
 /*
 execv(), execl(), execve(), execle(), execvp(), execlp()
+load different program in child process for execution by exec() family
 */
 void exec_family(){
-    char *arg[] = {"-la",NULL};     //args to command
-    char *env[] = {};   //explicit custom environment variable passing
-    //FIXME: so once exec family is called binary executable itself is changed it will not go to next line after that
-    //try to spawn child processes and ensure execution of all
-    execv("/bin/ls", arg);  //full file path is required
-    execl("/bin/ls", "-la",NULL);   //full file path + arg as variadic char*
-    execve("/bin/ls", arg, NULL);   //full file path + arg as char** + env as char*
-    execle("/bin/ls", "-la",NULL,env);
-    execvp("ls", arg);          //path is also searched using $PATH variable in shell
-    execlp("ls", "-la",NULL);
-}
-
-//load different program in child process for execution by exec() family
-void exec_use(){
-    pid_t pid = fork();
-    //let child process run ls command
-    if(pid == 0){
-        char *arg[] = {"-la",NULL};     //NULL terminated array
-        execvp("ls",arg);
+    //trying to spawn child processes and ensure execution of all
+    //TODO: show env uses by passing some values
+    pid_t p1 = fork();
+    if(p1 == 0){
+        char *arg[] = {"-la",NULL};     //args to command
+        execv("/bin/ls", arg);  //full file path is required
     }
-    puts("Hello World");
+    pid_t p2 = fork();
+    if(p2 == 0){
+        execl("/bin/ls", "-la",NULL);   //full file path + arg as variadic char*
+    }
+    pid_t p3 = fork();
+    if(p3 == 0){
+        char *arg[] = {"-la",NULL};     //args to command
+        execve("/bin/ls", arg, NULL);   //full file path + arg as char** + env as char*
+    }
+    pid_t p4 = fork();
+    if(p4 == 0){
+        char *arg[] = {"-la",NULL};     //args to command
+        char *env[] = {};   //explicit custom environment variable passing
+        execle("/bin/ls", "-la",NULL,env);
+    }
+    pid_t p5 = fork();
+    if(p5 == 0){
+        char *arg[] = {"-la",NULL};     //args to command
+        execvp("ls", arg);          //path is also searched using $PATH variable in shell
+    }
+    pid_t p6 = fork();
+    if(p6 == 0){
+        execlp("ls", "-la",NULL);
+    }  
 }
 
 //wait for child process completion
@@ -66,7 +77,6 @@ void wait_for_child_process(){
     //wait4(pid, &status_ptr, WUNTRACED, NULL);     //this call is also similar to waitpid()    
     printf("%d\n",status_ptr);
 }
-
 
 int main(){
     exec_family();

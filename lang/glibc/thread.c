@@ -40,7 +40,6 @@ void thread_using_mutex(){
     //join the thread i.e. wait for its completion
     int res;
     thrd_join(thr, &res);
-
     //TODO: call thrd_sleep() to wait for few seconds so that created thread can be executed before main thread exits
 }
 

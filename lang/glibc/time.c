@@ -47,15 +47,12 @@ void calendar_time(){
     //CLOCK_MONOTONIC - gives time from any random time in past (not epoch) - so this should be used for
     //elapsed time and not absolute time
     clock_gettime(CLOCK_REALTIME, &ts);     //this is better version of time() gives nano second precision
-    //printf the seconds since epoch
-    printf("%ld\n",ts.tv_sec);  //tv_sec gives seconds from epoch
-    printf("%ld\n",ts.tv_nsec); //tv_nsec gives nano second elapsed after tv_sec seconds 
-
+    //tv_sec gives seconds and tv_nsec gives nano second elapsed after tv_sec seconds from epoch
+    printf("%ld, %ld\n",ts.tv_sec,ts.tv_nsec);
     //takes any time in past as starting point (epoch for the clock) but will be same during same session without boot
     //so this can be used to get difference between two times but not absolute time as starting point is unknown
     clock_gettime(CLOCK_MONOTONIC,&ts);     
     printf("%ld, %ld\n",ts.tv_sec,ts.tv_nsec);
-
 }
 
 //broken down time
@@ -69,8 +66,10 @@ void broken_down_time(){
     //broken down time against greenwich mean time
     struct tm* tm2 = gmtime(&t);
 
-    //FIXME: it is not coming same as native time. why ??
+    //FIXME: it is not coming same as native time. why ?? hh:mm:ss format
     printf("%d:%d:%d\n",tm1->tm_hour,tm1->tm_min,tm1->tm_sec);
+    //get the date - dd.mm.yyyy format
+    printf("%d.%d.%d\n",tm1->tm_mday,tm1->tm_mon + 1,1900 + tm1->tm_year);
 }
 
 //formatting time 
@@ -138,7 +137,7 @@ void create_and_respond_to_alarm(){
     //listen for SIGALRM signal
     signal(SIGALRM, alarm_handler);
     //raise alarm signal to itself
-    create_alarm();
+    create_alarm2();
     //pause the process to it does not exit and receives SIGALRM after 3 seconds
     pause();
 }
