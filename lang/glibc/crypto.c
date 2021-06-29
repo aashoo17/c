@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <stdio.h>
 #include <unistd.h>     //this also have definition of crypt() - crypt.h can aslo be used
 // #include <crypt.h>   //this can also be used for crypt()
@@ -32,7 +33,7 @@ TODO: what will happen when we use say $6$ab or even just $6$ i.e. less that 16 
 
 
 //getting random data in c
-void random_data_buffer(){
+void random_buffer(){
     unsigned char buf[16];
     unsigned char buf2[16];
     //TODO: see the use cases of getentropy() vs getrandom()
@@ -44,11 +45,11 @@ void random_data_buffer(){
     */
     getrandom(buf2, 16, GRND_RANDOM);
 
-    for (int i = 0; i < 16;  i++){
+    for (size_t i = 0; i < 16;  i++){
         printf("%d,",buf[i]);
     }
     printf("\n");
-    for (int i = 0; i < 16;  i++){
+    for (size_t i = 0; i < 16;  i++){
         printf("%d,",buf2[i]);
     }
     printf("\n");
@@ -68,7 +69,7 @@ void crypto_hash(){
     //TODO: error handling - NULL or * based printable ascii is returned , how can we handle the error
     //a,b,c are here static allocation that means they live till program does not exit
     //TODO: so crypt modifies the same static allocation ?? as this print gives same result
-    printf("%s\n%s\n%s\n",a,b,c);
+    // printf("%s\n%s\n%s\n",a,b,c);    //this will give same result as pointer pointing to same static allocations
 }
 
 int main(){

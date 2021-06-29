@@ -5,7 +5,7 @@
 #include <string.h>
 
 int main(){
-    int fd = socket(AF_INET, SOCK_STREAM, 0);
+    int fd = socket(AF_INET, SOCK_STREAM, 0);   //with 0 default protocol is selected
 
     struct sockaddr_in addr;
     addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
