@@ -4,10 +4,10 @@ all:main
 	rm main
 
 # vpath %.c glibc
-file=process.c
+file=crypto.c
 
-main:$(file)
-	$(CC) -o $@ $<
+main:$(file) 
+	$(CC) -o $@ $< -lcrypt
 
 
 ass:$(file)

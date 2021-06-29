@@ -36,10 +36,13 @@ void random_data_buffer(){
     unsigned char buf[16];
     unsigned char buf2[16];
     //TODO: see the use cases of getentropy() vs getrandom()
-    //method1 
     getentropy(buf, 16);
-    //method2
-    getrandom(buf2, 16, GRND_NONBLOCK);
+    /*
+    GRND_RANDOM - Use the /dev/random (blocking) source instead of the /dev/urandom (non-blocking) source to obtain randomness.
+    GRND_NONBLOCK - Instead of blocking, return to the caller immediately if no data is available.
+    GRND_INSECURE - Write random data that may not be cryptographically secure.
+    */
+    getrandom(buf2, 16, GRND_RANDOM);
 
     for (int i = 0; i < 16;  i++){
         printf("%d,",buf[i]);
@@ -49,26 +52,27 @@ void random_data_buffer(){
         printf("%d,",buf2[i]);
     }
     printf("\n");
-    
 }
 
 void crypto_hash(){
     //TODO: use previously generated hash for salt
     //sha-2-512
     char *a = crypt("Hello World","$6$");
+    printf("%s\n",a);
     //sha-2-256
     char *b = crypt("Hello World","$5$");
+    printf("%s\n",a);
     //md5
     char *c = crypt("Hello World","$1$");
+    printf("%s\n\n",a);
     //TODO: error handling - NULL or * based printable ascii is returned , how can we handle the error
     //a,b,c are here static allocation that means they live till program does not exit
+    //TODO: so crypt modifies the same static allocation ?? as this print gives same result
     printf("%s\n%s\n%s\n",a,b,c);
 }
 
 int main(){
-    //TODO: try to use random funcction provided by glibc to use as salt
-    // random_data_buffer();
-    random_data_buffer();
+    crypto_hash();
 }
 
 //TODO: what about rsa and ed25519 in c

@@ -5,7 +5,6 @@ enum Gender{
 	Female	//assigned 1 implicitly
 };
 
-
 enum Color{
 	Red = 10,
 	Green = 20,

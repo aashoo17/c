@@ -4,7 +4,7 @@ all:main
 	rm main
 
 # vpath %.c glibc
-file=thread.c
+file=error.c
 
 main:$(file)
 	$(CC) -o $@ $<

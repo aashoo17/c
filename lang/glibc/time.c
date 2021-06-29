@@ -39,7 +39,7 @@ cpu time does not calculate waiting for IO etc.. use processor time if required
 //getting absolute time and conversion to calendar time (time date month year etc..)
 void calendar_time(){
     //gives no of seconds from epoch
-    time_t t = time(NULL); //instead of NULL pointer to time_t can be used which also gets the time value
+    time_t t = time(NULL); //instead of NULL pointer a time_t value can be passed which also gets the time value
     printf("%ld\n",t);
     //this gives more control over time
     struct timespec ts;
@@ -63,26 +63,32 @@ void broken_down_time(){
     //fields of struct tm - tm_sec, tm_min, tm_hour, tm_mday, tm_mon, tm_year .. etc
     //broken down time against local time zone
     struct tm* tm1 = localtime(&t);
-    //broken down time against greenwich mean time
-    struct tm* tm2 = gmtime(&t);
-
     //FIXME: it is not coming same as native time. why ?? hh:mm:ss format
     printf("%d:%d:%d\n",tm1->tm_hour,tm1->tm_min,tm1->tm_sec);
     //get the date - dd.mm.yyyy format
     printf("%d.%d.%d\n",tm1->tm_mday,tm1->tm_mon + 1,1900 + tm1->tm_year);
+    //broken down time against greenwich mean time
+    struct tm* tm2 = gmtime(&t);
+
+    //TODO: do localtime() and gmtime() point to sam estatic allocation
+    //hh:mm:ss format
+    printf("%d:%d:%d\n",tm2->tm_hour,tm2->tm_min,tm2->tm_sec);
+    //get the date - dd.mm.yyyy format
+    printf("%d.%d.%d\n",tm2->tm_mday,tm2->tm_mon + 1,1900 + tm2->tm_year);
 }
 
 //formatting time 
 void format_time(){
     time_t t = time(NULL);
     struct tm* tm1 = localtime(&t);
-    struct tm* tm2 = gmtime(&t);
     //convert broken down time back to time_t (epoch based time)
     time_t t1 = mktime(tm1);
 
     //Formatting Calendar Time
-    printf("%s%s%s\n",asctime(tm1),asctime(tm2),ctime(&t));
+    printf("%s%s\n",asctime(tm1),ctime(&t));
     //TODO: see all the other available formatting options for time
+    struct tm* tm2 = gmtime(&t);        
+    printf("%s\n",asctime(tm2));
 }
 
 //getting cpu time
@@ -114,11 +120,18 @@ static void create_alarm(){
     struct itimerval old,new;
     new.it_interval.tv_sec = 0;     //0 means send alarm only once other no will give no of time alarm to be sent
     new.it_interval.tv_usec = 0; 
+    
     new.it_value.tv_sec = 3;        //send alarm after seconds
     new.it_value.tv_usec = 0;       //microsecond precision value
 
     //this is more powerful and alarm() call is a special case of it
     //old will give any previous alarm created
+
+    /*
+        ITIMER_REAL - SIGALRM
+        ITIMER_VIRTUAL - SIGVTALRM
+        ITIMER_PROF - SIGPROF
+    */
     setitimer(ITIMER_REAL, &new, &old);
 }
 
@@ -149,5 +162,5 @@ void sleep_process_for_some_time(){
 }
 
 int main(){
-    create_and_respond_to_alarm();
+    format_time();
 }
