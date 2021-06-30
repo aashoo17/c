@@ -31,6 +31,13 @@ MD5         ‘$1$’       8 characters            => e.g. $1$abcdefgh
 TODO: what will happen when we use say $6$ab or even just $6$ i.e. less that 16 chars after $6$
 */
 
+static void print(unsigned char* buf,size_t size){
+    for (size_t i = 0; i < size;  i++){
+        printf("%d,",buf[i]);
+    }
+    printf("\n");
+}
+
 
 //getting random data in c
 void random_buffer(){
@@ -44,15 +51,8 @@ void random_buffer(){
     GRND_INSECURE - Write random data that may not be cryptographically secure.
     */
     getrandom(buf2, 16, GRND_RANDOM);
-
-    for (size_t i = 0; i < 16;  i++){
-        printf("%d,",buf[i]);
-    }
-    printf("\n");
-    for (size_t i = 0; i < 16;  i++){
-        printf("%d,",buf2[i]);
-    }
-    printf("\n");
+    print(buf,sizeof(buf));
+    print(buf2,sizeof(buf2));
 }
 
 void crypto_hash(){
@@ -73,7 +73,7 @@ void crypto_hash(){
 }
 
 int main(){
-    crypto_hash();
+    random_buffer();
 }
 
 //TODO: what about rsa and ed25519 in c

@@ -4,6 +4,7 @@
 
 - error handling
 - string functions
+- heap memory
 - file io
 - date and time
 - signal handling

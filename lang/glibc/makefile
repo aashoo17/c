@@ -4,10 +4,13 @@ all:main
 	rm main
 
 # vpath %.c glibc
-file=process.c
+file=signal.c
 
 main:$(file) 
-	$(CC) -o $@ $< -lcrypt
+	$(CC) -o $@ $<
+
+dbg:$(file)
+	$(CC) -g $< -o main
 
 
 ass:$(file)
@@ -17,4 +20,4 @@ cl:
 	rm main main.s
 
 
-.PHONY: all, ass, cl
+.PHONY: all, ass, cl, dbg
