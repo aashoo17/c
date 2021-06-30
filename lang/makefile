@@ -7,11 +7,11 @@ all:main
 file=error.c
 
 main:$(file)
-	$(CC) -o $@ $<
+	gcc -o $@ $<
 
 
 ass:$(file)
-	$(CC) -o main.s -S $<
+	gcc -o main.s -S $<
 
 cl: 
 	rm main main.s

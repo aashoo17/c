@@ -1,15 +1,14 @@
-#include<stdio.h>
+#include <stdio.h>
 
 /*
-false - 0, NULL, "", '', 
+false - 0, NULL, "", '',
 true - except for false values are all true
 */
-int main(){
-    int a = 10;
-    // if(a!= 0){} - //if(a){} would be same
-    if (a != 0) {
-        puts("got 10");
-    }
-    else
-        puts("10 not received");
+int main() {
+  int a = 10;
+  // if(a!= 0){} - //if(a){} would be same
+  if (a != 0) {
+    puts("got 10");
+  } else
+    puts("10 not received");
 }

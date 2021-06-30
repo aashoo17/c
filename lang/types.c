@@ -6,22 +6,22 @@
 integer min sizes - for portability
 implcit integer conversion rule
 TODO: why L, LL, UL, ULL etc is used
-by default things are of int size (32 bit in x64) and later implicit coversion will happen
-this is fine if only literal like 10 is used 
-long a = 10;
-32 bit 10 will get converted to 64 bit later
-what if we used this 
-long a = 10 * 10000000000000000 * 100000000;  // a multiplication which oveflows for 32 bit size but not for 64 bit
-multiplication will happen result stored in 32 bit (a some bit last as 32 bit is not enough to store) and later 
-implicitly converted to 64 bit
+by default things are of int size (32 bit in x64) and later implicit coversion
+will happen this is fine if only literal like 10 is used long a = 10; 32 bit 10
+will get converted to 64 bit later what if we used this long a = 10 *
+10000000000000000 * 100000000;  // a multiplication which oveflows for 32 bit
+size but not for 64 bit multiplication will happen result stored in 32 bit (a
+some bit last as 32 bit is not enough to store) and later implicitly converted
+to 64 bit
 
 if we used like
 long a = 10L * 10000000000000000 * 100000000;
 compiler will see it like - long * int * int
-and convert all int into long of size 64 bit and after multiplication result is also stored in 64 bit
+and convert all int into long of size 64 bit and after multiplication result is
+also stored in 64 bit
 */
 
-void integer(){
+void integer() {
   // signed integers
   signed char a = 10; // char - 1 byte
   short b = 10;       // short - 2 byte
@@ -43,7 +43,7 @@ void integer(){
 }
 
 // fixed integers types
-void fixed_integer_types(){
+void fixed_integer_types() {
   // signed types
   int8_t a = 10;
   int16_t b = 10;
@@ -63,22 +63,21 @@ void fixed_integer_types(){
   printf("%" PRId32 "%ld", a, i);
 }
 
-void explicit_conversion(){
+void explicit_conversion() {
   float d = 10.1;
   // explicit integer conversion
   int n = (int)d;
 }
 
-//TODO: implicit conversion in c
-void implicit_conversion(){
+// TODO: implicit conversion in c
+void implicit_conversion() {}
+
+void float_types() {
+  float a = 10;  // single precision - 32 bit
+  double b = 10; // double precision - 64 bit
 }
 
-void float_types(){
-  float a = 10;  //single precision - 32 bit
-  double b = 10; //double precision - 64 bit
-}
-
-void bool_types(){
+void bool_types() {
   // using stdbool
   bool a = true;
   bool b = false;
@@ -93,15 +92,15 @@ ascii at C's core - representing chars as integers
 how can unicode can be used in c (especially utf-8)
 what is null byte in char
 */
-void char_types(){
+void char_types() {
   char a = 'A';
-  char b = '\0'; //null byte
+  char b = '\0'; // null byte
 }
 
 /*
 printing integer, float, char, bool types
 */
-void printing(){
+void printing() {
   int a = 10;
   float b = 10.1;
   char c = 'A';
@@ -111,8 +110,7 @@ void printing(){
   printf("%04d %06.2f %c %d\n", a, b, c, d);
 }
 
-//other types like - pointer, struct, union, enum etc.. will be covered seperately
+// other types like - pointer, struct, union, enum etc.. will be covered
+// seperately
 
-int main() {
- fixed_integer_types(); 
-}
+int main() { fixed_integer_types(); }
