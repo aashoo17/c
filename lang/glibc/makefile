@@ -3,8 +3,8 @@ all:main
 	./main
 	rm main
 
-# vpath %.c glibc
-file=signal.c
+vpath %.c socket/udp
+file=server.c
 
 main:$(file) 
 	$(CC) -o $@ $<

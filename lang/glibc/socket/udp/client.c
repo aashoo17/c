@@ -3,9 +3,14 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdlib.h>
 
 int main(){
     int client_fd = socket(AF_INET, SOCK_DGRAM, 0);
+    if(client_fd == -1){
+        perror("");
+        exit(1);
+    }
 
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;  //ipv4 family
@@ -14,6 +19,7 @@ int main(){
 
     if(connect(client_fd, (struct sockaddr*)&addr, sizeof(struct sockaddr_in)) == -1){
         perror("");
+        exit(1);
     };
 
     char buf[100];

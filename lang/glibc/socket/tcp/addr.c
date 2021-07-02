@@ -22,6 +22,15 @@ these functions are used to convert address to desired big endian form
 htonl() - converts long to big endian, usually used for address
 htons() - converts short to big endian, usually used for port
 */
+
+/*
+returning pointer from function - a big problem
+can't be stack memory as it gets cleaned up when function returns
+heap memory returned - users has to know it and they should take responsibility
+of cleanup static memory - if this is returned it will persist during the whole
+process (kinda unnecessary memory leak)
+*/
+
 struct sockaddr *create_internet_address() {
   // TODO: handle byte order to be big endian(network byte order)
 
@@ -31,8 +40,8 @@ struct sockaddr *create_internet_address() {
   addr.sin_family = AF_INET;   // ipv4 family
   addr.sin_port = htons(3000); // port
   // TODO: INADDR_LOOPBACK vs INADDR_ANY differences
-  addr.sin_addr.s_addr =
-      htonl(INADDR_LOOPBACK); // ip address - loopback i.e. 127.0.0.1 here
+  // ip address - loopback i.e. 127.0.0.1 here
+  addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
 
   // cast internet address to generalized address
   return (struct sockaddr *)&addr;

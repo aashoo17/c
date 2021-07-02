@@ -6,10 +6,10 @@ SOCK_DGRAM - datagram or chunk of bytes are send
 SOCK_RAW - raw socket  
 **namespace/domain**  
 local namespaces - this are used local communication in same computer
-PF_LOCAL, PF_UNIX, PF_FILE  
+AF_LOCAL, AF_UNIX, AF_FILE  
 internet namespaces -  
-PF_INET - ipv4  
-PF_INET6 - ipv6  
+AF_INET - ipv4  
+AF_INET6 - ipv6  
 
 **protocol**  
 a combination of namespace and communication style uses some sort of protocol
