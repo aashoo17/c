@@ -95,6 +95,7 @@ what is null byte in char
 void char_types() {
   char a = 'A';
   char b = '\0'; // null byte
+  char c = 0;    // null byte - 0 in ascii is '\0' 
 }
 
 /*

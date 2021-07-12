@@ -34,19 +34,20 @@ atleast 4 bits so we can take atleast char type and set to use its 4 bits
 */
 
 typedef struct {
-  int age : 4; // say possible age is 1 to 10 then we need 4 bits, we may take
-               // char in place of int also, apart from 4 bits will be possibly 0
+  // say possible age is 1 to 10 then we need 4 bits, we may take char in place
+  // of int also, apart from 4 bits will be possibly 0
+  int age : 4;
   unsigned char flags : 2; // say poossible flags need 4 values max
-  unsigned char random : 1,
-      random2 : 2; // even we can have 2 or more parts for bit field - char
-                   // allows 8 bits we are using 3 here
+  // even we can have 2 or more parts for bit field - char allows 8 bits we are
+  // using 3 here
+  unsigned char random : 1, random2 : 2;
 } Ash;
 
 void bit_field() {
   Ash ash;
-
-  ash.age = 0b0110; // isn't is better to set bitfield in binary so we can
-                    // visually see each bit value set
+  // isn't is better to set bitfield in binary so we can visually see each bit
+  // value set
+  ash.age = 0b0110;
   ash.flags = 0b10;
   ash.random = 1;
   ash.random2 = 2;

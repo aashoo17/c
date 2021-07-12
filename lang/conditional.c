@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /*
-false - 0, NULL, "", '',
+false - 0, NULL, "", '\0',
 true - except for false values are all true
 */
 int main() {

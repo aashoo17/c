@@ -4,7 +4,7 @@ all:main
 	rm main
 
 # vpath %.c glibc
-file=error.c
+file=types.c
 
 main:$(file)
 	gcc -o $@ $<

@@ -13,8 +13,8 @@ struct Human {
 typedef struct Human Human;
 
 // initialize struct
-void initialize() {
-  // struct initialization - allocating on stack
+void create_initialize() {
+  // on stack memory
   struct Human h;
   // access fields
   strcpy(h.name, "Some Random Name");
@@ -34,6 +34,9 @@ void initialize() {
   // pointer to struct
   struct Human *h4 = &h2;
 
+  //static allocation - stored in static memory part of the process
+  static struct Human h5;
+
   // heap cleanup
   free(h1);
 }
@@ -52,7 +55,7 @@ void access_struct_members() {
 }
 
 // structure assignment
-void struct_assignement() {
+void struct_assignment() {
   struct Human a;
   struct Human b = {"Some Name", 10};
 
@@ -127,4 +130,4 @@ void flex_allocation() {
 
 // TODO: ways to store structure in file with portability
 
-int main() { struct_assignement(); }
+int main() { struct_assignment(); }

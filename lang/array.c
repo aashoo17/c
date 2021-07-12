@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+allocation on stack in linux is also method calls - alloca()
+int a[10]; syntax simplifies that for you by calling that function implicitly
+*/
+
 void array() {
   // create x on stack and x is pointer to first elm
   int a[] = {1, 2, 3, 4};

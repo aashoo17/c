@@ -14,6 +14,9 @@ time time store 4 byte int or 40 byte name its upto us
 only problem union has that at any time what is stored we have to know
 explicitly otherwise bytes will be stored for int and we are say using as char
 array
+
+compiler does not support the user in terms of telling what is the current type
+stored at union user should be careful to use the correct current type
 */
 #include <stdio.h>
 #include <string.h>

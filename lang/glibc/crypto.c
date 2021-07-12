@@ -39,7 +39,7 @@ static void print(unsigned char* buf,size_t size){
 }
 
 
-//getting random data in c
+//getting random data in c - till 256 bytes
 void random_buffer(){
     unsigned char buf[16];
     unsigned char buf2[16];
