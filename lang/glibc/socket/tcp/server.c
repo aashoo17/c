@@ -14,18 +14,21 @@ int main() {
 
   SOCK_STREAM - stream socket
   SOCK_DGRAM - datagram socket
+
+  0 - default protocol
   */
   int sock = socket(AF_INET, SOCK_STREAM, 0);
   if (sock == -1) {
     perror("");
     exit(1);
   }
-  //todo: how pointer to struct sockaddr_in and sockaddr can be converted from one to another
+  // todo: how pointer to struct sockaddr_in and sockaddr can be converted from
+  // one to another
   struct sockaddr_in addr;
   addr.sin_port = htons(3000);
   // todo: conversion functions from human readable 127.0.0.1 to binary big
   // endian form
-  //INADDR_LOOPBACK is const defined for - 127.0.0.1
+  // INADDR_LOOPBACK is const defined for - 127.0.0.1
   addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
   // address family not supported by protocol error - when this line was not
   // declared
@@ -35,7 +38,7 @@ int main() {
     perror("");
     exit(1);
   };
-  //backlog connections - 128
+  // backlog connections - 128
   if (listen(sock, 128) == -1) {
     perror("");
     exit(1);
@@ -49,11 +52,16 @@ int main() {
   char buf[100];
 
   // all this will be blocking code
+  // todo: all the time i am talking to the same client how can we talk to many
+  // of them in single threaded environment without creating new process or
+  // thread
+  int fd = accept(sock, (struct sockaddr *)&cl_addr, &len);
+  //this will block the thread and it will accept the connection from other client but will not respond
+  //since server will be busy with single client as read/write calls keep on happening in loop
   while (1) {
-    int fd = accept(sock, (struct sockaddr *)&cl_addr, &len);
     read(fd, buf, sizeof(buf));
     write(fd, buf, strlen(buf));
-    //fixme: client is not closing connection after close() call
-    close(fd);
+    memset(buf, 0, sizeof(buf));
   }
+  close(fd);
 }

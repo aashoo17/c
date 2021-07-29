@@ -14,23 +14,23 @@ void ptr_basics() {
   int *b = &a;
   // int *b1 = &10;    //this is not possible in c - as c does not allow taking
   // literal address
+  //it should have been allowed by temporary putting memory on stack and giving pointer to it
 
   // deref
   *b = 20;
 
-  // pointer arithmetic
+  // pointer arithmetic - array is born from this
   printf("%p\n", b);
   // adding 2 to ptr will move it here by 4*2 bytes
   printf("%p\n", b + 2);
   // similarly adding 6 will move 4*6
   printf("%p\n", b + 6);
 
-  // void*
-  // this can be used for generics keep any pointer type pointed using void*
+  // void* - generic types are created using void* in c but explicit cast required as no type info is stored seperately
   // but when deref is used we need to cast
   // i don't see any void* uses people use MACRO for such requirement
   void *c = &a;
-  // if deref is required cast to to some typed pointer type
+  // if deref is required cast to to some typed pointer type - it is user's responsibility to cast to valid type
   *(int *)c = 30;
   /*
   NULL

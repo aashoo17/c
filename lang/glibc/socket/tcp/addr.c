@@ -3,8 +3,8 @@
 socket address:
 all the socket api takes generic address in form of struct sockaddr
 but we can have multiple address - say for address for ipv4 is different from
-ipv6 and address from same computer communication for internet ipv4 we use -
-struct sockaddr_in cast struct sockaddr_in to struct sockaddr
+ipv6 and address from same computer 
+communication for internet ipv4 we use - struct sockaddr_in cast struct sockaddr_in to struct sockaddr
 
 now at low level bytes are platform dependent - mostly two form these days
 called endianess
@@ -34,7 +34,7 @@ process (kinda unnecessary memory leak)
 struct sockaddr *create_internet_address() {
   // TODO: handle byte order to be big endian(network byte order)
 
-  // i am doing static allocation for my internet address struct
+  // i am doing static memory allocation for my internet address struct
   static struct sockaddr_in addr;
   // initialize addr
   addr.sin_family = AF_INET;   // ipv4 family

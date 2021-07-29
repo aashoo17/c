@@ -1,10 +1,9 @@
-.SILENT:
 all:main
 	./main
 	rm main
 
 vpath %.c socket/udp
-file=server.c
+file=client.c
 
 main:$(file) 
 	$(CC) -o $@ $<
@@ -20,4 +19,5 @@ cl:
 	rm main main.s
 
 
-.PHONY: all, ass, cl, dbg
+.PHONY: all ass cl dbg
+.SILENT: all main ass cl dbg

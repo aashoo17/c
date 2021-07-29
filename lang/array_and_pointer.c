@@ -25,7 +25,7 @@ void array_declaration_initialization() {
   // d = {40,30,20,10,0};
 }
 
-// DO: learn about precedence order using Precedence.pdf in assets folder
+// todo: learn about precedence order using Precedence.pdf in assets folder
 
 // unary operator with same precedence used on same operand - so that
 // associativity can be checked for unary ops e.g. things like *start++ over a

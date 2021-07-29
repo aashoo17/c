@@ -64,7 +64,9 @@ socket(),connect(),write()/read(), close()
 
 **for UDP:**  
 server side calls:  
-socket(), bind(), recvfrom(), sendto(), close()  
+socket(), bind(), recvfrom()/sendto(), close()  
 client side calls:   
 TODO: since no bind call is made what address the socket will get here  
-socket(), recvfrom(), sendto(), close()
+socket(), recvfrom(), sendto(), close()  
+or
+socket(),connect(), read()/write(), close()  

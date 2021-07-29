@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,11 +8,12 @@ int a[10]; syntax simplifies that for you by calling that function implicitly
 */
 
 void array() {
-  // create x on stack and x is pointer to first elm
+  // create x on stack and x is pointer to first element
   int a[] = {1, 2, 3, 4};
 
   // modify
   a[0] = 10;
+  *(a + 1) = 20;    //equal to a[1]
 
   // read
   int b = a[1];
@@ -40,8 +42,9 @@ void array() {
                            // can be assigned to another memory address
 
   // heap based array
-  int *i = malloc(sizeof(int) * 5);
-  for (size_t j = 0; j < 5; j++) {
+  size_t size = 5;
+  int *i = malloc(sizeof(int) * size);
+  for (size_t j = 0; j < size; j++) {
     i[j] = 10 + j;
   }
 }

@@ -33,11 +33,10 @@ int main() {
   while (1) {
     // first wait for any client to send data
     recvfrom(server_fd, buf, sizeof(buf), 0, (struct sockaddr *)&cl_addr, &len);
-    // and in turn send him data back
-    // fixme: I am sending something unexpected when no data is received apart
-    // i.e. enter key is hit by client
+    puts(buf);
     sendto(server_fd, buf, strlen(buf), 0, (struct sockaddr *)&cl_addr,
            sizeof(struct sockaddr_in));
+    memset(buf, 0, sizeof(buf));
   }
   close(server_fd);
 }

@@ -9,7 +9,7 @@ TODO: why L, LL, UL, ULL etc is used
 by default things are of int size (32 bit in x64) and later implicit coversion
 will happen this is fine if only literal like 10 is used long a = 10; 32 bit 10
 will get converted to 64 bit later what if we used this long a = 10 *
-10000000000000000 * 100000000;  // a multiplication which oveflows for 32 bit
+10000000000000000 * 100000000;  // a multiplication which overflows for 32 bit
 size but not for 64 bit multiplication will happen result stored in 32 bit (a
 some bit last as 32 bit is not enough to store) and later implicitly converted
 to 64 bit
@@ -23,6 +23,7 @@ also stored in 64 bit
 
 void integer() {
   // signed integers
+  //todo: see the c standard for sizes of int types
   signed char a = 10; // char - 1 byte
   short b = 10;       // short - 2 byte
   int c = 10;         // int - min 2 byte
@@ -38,7 +39,7 @@ void integer() {
 
   // octal, hexadecimal and binary
   int k = 0x10;
-  int l = 010;
+  int l = 010;    //octal could have been taken prefixed with 0o would have been uniform with hex & binary
   int m = 0b01010;
 }
 
@@ -60,6 +61,8 @@ void fixed_integer_types() {
   uintptr_t i = (uintptr_t)&a;
 
   // TODO: using inttypes.h with stdint.h types
+  //all the fixed type are typedeffed and can vary based on platform how a user will know which formatting char to be used
+  //PRId32 macro makes it easy to do so
   printf("%" PRId32 "%ld", a, i);
 }
 
@@ -69,7 +72,7 @@ void explicit_conversion() {
   int n = (int)d;
 }
 
-// TODO: implicit conversion in c
+// TODO: tell about all the implicit conversions allowed in c
 void implicit_conversion() {}
 
 void float_types() {

@@ -11,4 +11,15 @@ int main() {
     puts("got 10");
   } else
     puts("10 not received");
+
+  int b = 20;
+
+  switch (b) {
+  case 10:
+    printf("%d", b);
+    break;
+  default:
+    printf("default");
+    break;
+  }
 }
