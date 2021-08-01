@@ -3,7 +3,7 @@ all:main
 	rm main
 
 vpath %.c socket/udp
-file=client.c
+file=server.c
 
 main:$(file) 
 	$(CC) -o $@ $<
@@ -16,7 +16,7 @@ ass:$(file)
 	$(CC) -o main.s -S $<
 
 cl: 
-	rm main main.s
+	rm main
 
 
 .PHONY: all ass cl dbg

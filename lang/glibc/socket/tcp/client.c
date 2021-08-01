@@ -54,6 +54,7 @@ int main() {
     // write the buffer on the server socket
     write(fd, buf, strlen(buf));
     // read the data from server in a buffer
+    //fixme: first time when buffer is read it gives all the data back to server even the garbage value
     read(fd, buf2, strlen(buf));
     // print the data read from the server
     puts(buf2);

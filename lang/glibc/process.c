@@ -56,7 +56,7 @@ void exec_family() {
     pid_t p5 = fork();
     if (p5 == 0) {
       char *arg[] = {"-la", NULL}; // args to command
-      execvp("ls", arg); // path is also searched using $PATH variable in shell
+      execvp("ls", arg); // path is also searched using $PATH environment variable
     }
     pid_t p6 = fork();
     if (p6 == 0) {

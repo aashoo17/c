@@ -13,7 +13,7 @@ called endianess
 
 so each computer can interpret same data differently so it was decided to
 convert all data to big endian before sending so that each computer will decode
-as big endian and gets same data
+as big endian and gets same interpretation of data
 
 so since address, port etc gets transferred around they also need to be in big
 endian form
@@ -41,6 +41,7 @@ struct sockaddr *create_internet_address() {
   addr.sin_port = htons(3000); // port
   // TODO: INADDR_LOOPBACK vs INADDR_ANY differences
   // ip address - loopback i.e. 127.0.0.1 here
+  //todo: is htonl() required or INADDR_LOOPBACK) macro is already in big endian form
   addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
 
   // cast internet address to generalized address

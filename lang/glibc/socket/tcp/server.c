@@ -60,6 +60,7 @@ int main() {
   //since server will be busy with single client as read/write calls keep on happening in loop
   while (1) {
     read(fd, buf, sizeof(buf));
+    puts(buf);
     write(fd, buf, strlen(buf));
     memset(buf, 0, sizeof(buf));
   }
