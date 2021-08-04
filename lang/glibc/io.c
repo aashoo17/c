@@ -15,7 +15,7 @@ void file_pointer() {
   created, initial position for reading at beginning of file but content is
   appended at the end
   */
-  FILE *f = fopen("file.txt", "a+");
+  FILE *f = fopen("file.txt", "w+");
   if (f != NULL) {
     char buf[] = "File pointer";
     fwrite(buf, 1, strlen(buf), f);
@@ -45,4 +45,4 @@ void fd_based_io() {
   }
 }
 
-int main() { fd_based_io(); }
+int main() { file_pointer(); }

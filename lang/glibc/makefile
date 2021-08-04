@@ -2,8 +2,8 @@ all:main
 	./main
 	rm main
 
-vpath %.c socket/udp
-file=server.c
+# vpath %.c socket/tcp
+file=io.c
 
 main:$(file) 
 	$(CC) -o $@ $<

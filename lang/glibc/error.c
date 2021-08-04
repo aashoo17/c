@@ -47,4 +47,4 @@ void handle_error() {
   }
 }
 
-int main() { check_err_value(); }
+int main() { handle_error(); }
