@@ -9,34 +9,26 @@ int main() {
   int server_fd = socket(AF_INET, SOCK_DGRAM, 0);
   if (server_fd == -1) {
     perror("");
-    exit(1);
+    exit(server_fd);
   }
 
-  // create address
   struct sockaddr_in addr;
   addr.sin_family = AF_INET;   // ipv4 family
   addr.sin_port = htons(3000); // port
-  // ip address - loopback i.e. 127.0.0.1 here
   addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
 
-  if (bind(server_fd, (struct sockaddr *)&addr, sizeof(struct sockaddr_in)) ==
-      -1) {
+  if (bind(server_fd, (struct sockaddr *)&addr, sizeof(struct sockaddr_in)) == -1) {
     perror("");
-    exit(1);
+    exit(-1);
   }
 
   char buf[100];
-  // start sending and receaving data
-  // client address detail filled in this struct
   struct sockaddr_in cl_addr;
   socklen_t len;
   while (1) {
-    // first wait for any client to send data
     recvfrom(server_fd, buf, sizeof(buf), 0, (struct sockaddr *)&cl_addr, &len);
     puts(buf);
-    sendto(server_fd, buf, strlen(buf), 0, (struct sockaddr *)&cl_addr,
-           sizeof(struct sockaddr_in));
+    sendto(server_fd, buf, strlen(buf), 0, (struct sockaddr *)&cl_addr,sizeof(struct sockaddr_in));
     memset(buf, 0, sizeof(buf));
   }
-  close(server_fd);
 }

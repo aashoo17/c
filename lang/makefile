@@ -3,12 +3,11 @@ all:main
 	./main
 	rm main
 
-# vpath %.c glibc
-file=types.c
+vpath %.c glibc/socket/udp
+file = server.c
 
 main:$(file)
 	gcc -o $@ $<
-
 
 ass:$(file)
 	gcc -o main.s -S $<

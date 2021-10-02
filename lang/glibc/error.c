@@ -38,8 +38,7 @@ void handle_error() {
   // say file reading error
   int fd = open("file.txt", O_RDWR); // if file.txt is not available in current
                                      // directory - error is thrown
-  if (fd == -1) {
-    printf("%s\n", strerror(errno));
+  if (fd == -1) {printf("%s\n", strerror(errno));
     // custom error
     perror("custom error");
     perror(""); // passing "" or NULL will work like
