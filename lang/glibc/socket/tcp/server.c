@@ -11,12 +11,9 @@ int main() {
     perror("");
     exit(sock);
   }
-  // todo: how pointer to struct sockaddr_in and sockaddr can be converted from
-  // one to another
   struct sockaddr_in addr;
   addr.sin_port = htons(3000);
-  // todo: conversion functions from human readable 127.0.0.1 to binary big
-  // endian form
+  // todo: conversion functions from human readable 127.0.0.1 to binary big endian form
   // todo: INADDR_LOOPBACK is const defined for - 127.0.0.1, what is INADDR_ANY then
   addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
   addr.sin_family = AF_INET;

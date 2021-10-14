@@ -3,17 +3,15 @@ all:main
 	./main
 	rm main
 
-vpath %.c glibc/socket/udp
-file = server.c
+vpath %.c glibc/socket/
+file = epoll.c
 
 main:$(file)
 	gcc -o $@ $<
 
-ass:$(file)
-	gcc -o main.s -S $<
-
+# TODO: delete only when file is available
 cl: 
-	rm main main.s
+	rm main
 
 
 .PHONY: all, ass, cl
