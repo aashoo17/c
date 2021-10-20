@@ -3,7 +3,7 @@ all:main
 	./main
 	rm main
 
-vpath %.c glibc/socket/
+vpath %.c glibc/socket
 file = epoll.c
 
 main:$(file)
@@ -12,6 +12,5 @@ main:$(file)
 # TODO: delete only when file is available
 cl: 
 	rm main
-
 
 .PHONY: all, ass, cl
