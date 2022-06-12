@@ -4,9 +4,9 @@
 
 /*
 integer min sizes - for portability
-implcit integer conversion rule
+implicit integer conversion rule
 TODO: why L, LL, UL, ULL etc is used
-by default things are of int size (32 bit in x64) and later implicit coversion
+by default things are of int size (32 bit in x64) and later implicit conversion
 will happen this is fine if only literal like 10 is used long a = 10; 32 bit 10
 will get converted to 64 bit later what if we used this long a = 10 *
 10000000000000000 * 100000000;  // a multiplication which overflows for 32 bit
@@ -115,6 +115,6 @@ void printing() {
 }
 
 // other types like - pointer, struct, union, enum etc.. will be covered
-// seperately
+// separately
 
 int main() { fixed_integer_types(); }

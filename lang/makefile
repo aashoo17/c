@@ -4,7 +4,7 @@ all:main
 	rm main
 
 vpath %.c glibc/socket
-file = epoll.c
+file = ptr.c
 
 main:$(file)
 	gcc -o $@ $<
