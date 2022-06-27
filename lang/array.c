@@ -9,17 +9,17 @@ int a[10]; syntax simplifies that for you by calling that function implicitly
 
 void array() {
   // create x on stack and x is pointer to first element
-  int a[] = {1, 2, 3, 4};
+  int int_array[] = {1, 2, 3, 4};
 
   // modify
-  a[0] = 10;
-  *(a + 1) = 20;    //equal to a[1]
+  int_array[0] = 10;
+  *(int_array + 1) = 20;    //equal to a[1]
 
   // read
-  int b = a[1];
+  int b = int_array[1];
   // designated initializers
   // 3rd elm put to 10 and others will be made 0
-  int c[10] = {[3] = 10};
+  int designated_initializer[10] = {[3] = 10};
 
   /*function with array syntax vs pointer syntax are same for c
   int sum(int *ar, int n);
@@ -29,7 +29,7 @@ void array() {
   */
 
   // const
-  const int d[] = {1};
+  const int const_array[] = {1};
   // what is the problem here says double const is used
   // is one const is enough to make this array non modifiable
   // const int const b[] = {2};

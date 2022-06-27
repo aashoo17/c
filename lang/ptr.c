@@ -3,27 +3,27 @@
 
 void ptr_basics() {
   // create
-  int a = 10;
-  int *b = &a;
+  int ten = 10;
+  int *pointer_to_ten = &ten;
   // int *b1 = &10;    //this is not possible in c - as c does not allow taking literal address
   //it should have been allowed by temporary putting memory on stack and giving pointer to it
 
   // deref
-  *b = 20;
+  *pointer_to_ten = 20;
 
   // pointer arithmetic - array is born from this
-  printf("%p\n", b);
+  printf("%p\n", pointer_to_ten);
   // adding 2 to ptr will move it here by 4*2 bytes
-  printf("%p\n", b + 2);
+  printf("%p\n", pointer_to_ten + 2);
   // similarly adding 6 will move 4*6
-  printf("%p\n", b + 6);
+  printf("%p\n", pointer_to_ten + 6);
 
   // void* - generic types are created using void* in c but explicit cast required as no type info is stored separately
   // but when deref is used we need to cast
   // i don't see any void* uses people use MACRO for such requirement - most uses in malloc memory allocation and giving pointer to it
-  void *c = &a;
+  void *ptr_ten = &ten;
   // if deref is required cast to to some typed pointer type - it is user's responsibility to cast to valid type
-  *(int *)c = 30;
+  *(int *)ptr_ten = 30;
   /*
   NULL
   0 is implicitly casted to NULL - some do define as (void*)0
@@ -31,7 +31,7 @@ void ptr_basics() {
   platform 32/64 bit) of pointer are filled with 0 bits 
   00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 = on 64 bit platform
   */
-  int *d = 0;
+  int *zero = 0;
   /*
   int**, void**
   take the pointer to pointer
@@ -45,13 +45,13 @@ void ptr_basics() {
   them using ** pointer to be together as arrays of pointer 
   int* a[] = {&10,&50,&100,&200} - why address to literal is not allowed
   */
-  int e = 10;
-  int f = 50;
-  int g = 100;
-  int h = 200;
+  int twenty = 20;
+  int fifty = 50;
+  int hundred = 100;
+  int two_hundred = 200;
   // all e,f,g,h are stored somewhere in memory
   // but we can keep pointer to them 1 after another as array
-  int *i[] = {&e, &f, &g, &h};
+  int *ptr_array[] = {&twenty, &fifty, &hundred, &two_hundred};
   /*
   void**
   this will mean we can keep pointer of arrays but these pointer can be to any

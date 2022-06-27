@@ -3,7 +3,7 @@
 /*
 enum in c become file scoped this is big problem
 below Male can be accessed anywhere in the .c file
-what will happen when I have a variable also name as Male somwhere in the file ??
+what will happen when I have a variable also name as Male somewhere in the file ??
 
 cpp came with the solution to use enum class Gender{} like this - without breaking compatibility
 */

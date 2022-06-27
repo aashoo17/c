@@ -2,25 +2,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-/*
-integer min sizes - for portability
-implicit integer conversion rule
-TODO: why L, LL, UL, ULL etc is used
-by default things are of int size (32 bit in x64) and later implicit conversion
-will happen this is fine if only literal like 10 is used long a = 10; 32 bit 10
-will get converted to 64 bit later what if we used this long a = 10 *
-10000000000000000 * 100000000;  // a multiplication which overflows for 32 bit
-size but not for 64 bit multiplication will happen result stored in 32 bit (a
-some bit last as 32 bit is not enough to store) and later implicitly converted
-to 64 bit
-
-if we used like
-long a = 10L * 10000000000000000 * 100000000;
-compiler will see it like - long * int * int
-and convert all int into long of size 64 bit and after multiplication result is
-also stored in 64 bit
-*/
-
 void integer() {
   // signed integers
   //todo: see the c standard for sizes of int types
@@ -73,7 +54,10 @@ void explicit_conversion() {
 }
 
 // TODO: tell about all the implicit conversions allowed in c
-void implicit_conversion() {}
+void implicit_conversion() {
+  short a = 10;
+  int b = a;  //implicit conversion of short to int
+}
 
 void float_types() {
   float a = 10;  // single precision - 32 bit
@@ -98,7 +82,7 @@ what is null byte in char
 void char_types() {
   char a = 'A';
   char b = '\0'; // null byte
-  char c = 0;    // null byte - 0 in ascii is '\0' 
+  char c = 0;    // null byte - integer 0 is implicitly converted to null byte in ascii which is '\0' 
 }
 
 /*
