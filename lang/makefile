@@ -4,7 +4,7 @@ all:main
 	rm main
 
 vpath %.c glibc/socket
-file = types.c
+file = function.c
 
 main:$(file)
 	gcc -o $@ $<
