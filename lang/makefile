@@ -1,13 +1,12 @@
 .SILENT:
 all:main
 	./main
-	rm main
 
-vpath %.c glibc/socket
-file = function.c
+vpath %.c glibc
+file = signal.c
 
 main:$(file)
-	gcc -o $@ $<
+	gcc -g -o $@ $<
 
 # TODO: delete only when file is available
 cl: 

@@ -77,9 +77,10 @@ void wait_for_child_process() {
   /*
   WAIT_ANY - waitpid should return status information about any child process
   WAIT_MYPGRP - waitpid should return status in-formation about any child
-  process in the same process group as the calling process. WNOHANG - waitpid
-  should return immediately instead of waiting, if there is no child process
-  ready to be noticed WUNTRACED - report the status of any child processes that
+  process in the same process group as the calling process. 
+  WNOHANG - waitpid should return immediately instead of waiting, if there is no child process
+  ready to be noticed 
+  WUNTRACED - report the status of any child processes that
   have been stopped as well as those that have terminated
   */
   waitpid(pid, &status_ptr, WUNTRACED);

@@ -74,18 +74,15 @@ void broken_down_time() {
   // fields of struct tm - tm_sec, tm_min, tm_hour, tm_mday, tm_mon, tm_year ..
   // etc broken down time against local time zone
   struct tm *tm1 = localtime(&t);
-  // FIXME: it is not coming same as local time. why ?? hh:mm:ss format
-  printf("%d:%d:%d\n", tm1->tm_hour, tm1->tm_min, tm1->tm_sec);
-  // get the date - dd.mm.yyyy format
-  printf("%d.%d.%d\n", tm1->tm_mday, tm1->tm_mon + 1, 1900 + tm1->tm_year);
+  printf("%d-%d-%d %d:%d:%d\n", tm1->tm_year + 1900, tm1->tm_mon + 1,
+         tm1->tm_mday, tm1->tm_hour, tm1->tm_min, tm1->tm_sec);
   // broken down time against greenwich mean time
   struct tm *tm2 = gmtime(&t);
 
-  // TODO: do localtime() and gmtime() point to sam estatic allocation
+  // TODO: do localtime() and gmtime() point to same static allocation
   // hh:mm:ss format
-  printf("%d:%d:%d\n", tm2->tm_hour, tm2->tm_min, tm2->tm_sec);
-  // get the date - dd.mm.yyyy format
-  printf("%d.%d.%d\n", tm2->tm_mday, tm2->tm_mon + 1, 1900 + tm2->tm_year);
+  printf("%d-%d-%d %d:%d:%d\n", tm2->tm_year + 1900, tm2->tm_mon + 1,
+         tm2->tm_mday, tm2->tm_hour, tm2->tm_min, tm2->tm_sec);
 }
 
 // formatting time
@@ -174,4 +171,4 @@ void sleep_process_for_some_time() {
   sleep(3);
 }
 
-int main() { format_time(); }
+int main() { broken_down_time(); }

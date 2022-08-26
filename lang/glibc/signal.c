@@ -1,7 +1,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <sys/wait.h>
-#include <unistd.h>
+#include <unistd.h>   //fork()
 #include <sys/wait.h>
 
 // signal handler function
@@ -15,12 +15,14 @@ int main() {
     //fixme: handler is not getting called 
     signal(SIGINT, handler);
     // Wait for a signal to be received
+    printf("Hello World!\n");
     pause();
     // send SIGINT from command line by pressing ctrl + c
   }
   kill(pid, SIGINT);
   int status;
   waitpid(pid, &status, WAIT_ANY);
+  
 }
 
 // generating signal
