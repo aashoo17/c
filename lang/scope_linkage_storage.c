@@ -1,55 +1,79 @@
+#include <stdio.h>
 #include <stdlib.h>
+
 /*
-SCOPE:
-1. block scope
-2. function scope
-3. function prototype scope
-4. file scope
+ 1. LINKAGE (Visibility across files)
+ - External Linkage (Default for globals): Visible to other translation units
+ (.c files).
+ - Internal Linkage ('static' global): Visible ONLY in this file.
 */
-void function_block(){
-        int i = 0;
+int g_external_var =
+    100; // Can be accessed in other files using 'extern int g_external_var;'
+static int g_internal_var = 50; // Hidden from other files.
+
+/*
+ 2. STORAGE DURATION (Lifetime)
+ - Static Storage: Exists for the entire program execution (Globals, static
+ locals).
+ - Automatic Storage: Exists only while the block is executing (Stack
+ variables).
+ - Allocated Storage: Exists until explicitly freed (Heap).
+*/
+
+void storage_duration_demo() {
+  printf("\n--- Storage Duration ---\n");
+
+  // Automatic variable (re-initialized every call)
+  int auto_var = 1;
+
+  // Static variable (initialized ONLY ONCE, persists value between calls)
+  static int static_var = 1;
+
+  printf("  auto_var: %d, static_var: %d\n", auto_var, static_var);
+
+  auto_var++;
+  static_var++;
 }
 
-void block_scope(){
-    //conditional
-    int i = 0;
-    if(i == 0){
-        //create a new variable
-        int if_scoped_var = 10; //this will available inside if block only
-    }
-    //loop
-    for(int i = 0; i < 5; i++){     //this i variable created in for is available inside for block only
-        i++;    //i not available after the for block
-    }
-    //function
-    function_block();   //i created in function will not be available later
+/*
+ 3. SCOPE (Visibility within file)
+ - File Scope: Visible from declaration to end of file.
+ - Block Scope: Visible inside { ... }
+ - Shadowing: Inner scope variables hide outer scope variables of the same name.
+*/
+int x = 1000; // File scope
+
+void scope_shadowing_demo() {
+  printf("\n--- Scope & Shadowing ---\n");
+  printf("  File scope x: %d\n", x);
+
+  int x = 10; // Block scope (Shadows global x)
+  printf("  Function scope x: %d (Shadows global)\n", x);
+
+  {
+    int x = 5; // Inner block scope (Shadows function x)
+    printf("  Inner block x: %d (Shadows function)\n", x);
+  }
+
+  printf("  Back to Function scope x: %d\n", x);
+
+  // Access global x explicitly? C doesn't have ::x like C++,
+  // but if we didn't shadow it, we could see it.
 }
 
-/*
-linkage
-1. internal linkage
-2. external linkage
-*/
-//linkage in global or file scoped variables
-static int internal_linkage_var = 10;   //internal linkage
-//TODO: even if it is having external linkage we still can not use it in another file. how it can be done without extern use
-int external_linkage_variable = 10;     //external linkage
-//[external variable explained beautifully](https://www.youtube.com/watch?v=ySY_FlA7EvA)
-extern int extern_var; //any same name variable in another translation unit/file initialized its value can be used here
+int main() {
+  // Storage Demo: Call multiple times to see static variable increment
+  storage_duration_demo();
+  storage_duration_demo();
+  storage_duration_demo();
 
-void external_linkage_in_function(){}   //external linkage
-static void internal_linkage_in_function(){}    //internal linkage
+  // Scope Demo
+  scope_shadowing_demo();
 
-/*
-storage class:
-1. automatic storage
-2. static/global storage
-3. heap storage
-*/
-int global_storage = 10;    //global storage - lives till the lifetime of program
-void storage_classes(){
-    static int static_storage = 10;     //lives till the lifetime of program
-    int automatic_storage = 10;     //gets cleaned when function exits 
-    int *heap_storage = malloc(10);     //heap storage memory lives until freed explicitly
-    free(heap_storage);
+  // Linkage/Global access
+  printf("\n--- Globals ---\n");
+  printf("  External Global: %d\n", g_external_var);
+  printf("  Internal (Static) Global: %d\n", g_internal_var);
+
+  return 0;
 }

@@ -1,135 +1,145 @@
+#include <float.h> // for float constants
 #include <inttypes.h> //this includes stdint.h by default so we may skip including stdint.h it
-#include <stdbool.h>
-#include <stdio.h>
+#include <limits.h>  // for int constants
+#include <stdbool.h> // for bool constants
+#include <stdio.h>   // for printf
 
 void integer() {
   // signed integers
-  // todo: see the c standard for sizes of int types
-  signed char a = 10; // char - 1 byte
-  short b = 10;       // short - 2 byte
-  int c = 10;         // int - min 2 byte
-  long d = 10L;       // long - min 4 byte
-  long long e = 10LL; // long long - min 8 byte
+  signed char a = 10; // at least 8 bits
+  short b = 10;       // at least 16 bits
+  int c = 10;         // at least 16 bits, typically 32
+  long d = 10L;       // at least 32 bits
+  long long e = 10LL; // at least 64 bits
 
-  // unsigned counter parts
-  unsigned char f = 10;
-  unsigned short g = 10;
-  unsigned int h = 10; // unsigned int and unsigned are same type
-  unsigned long i = 10UL;
-  unsigned long long j = 10ULL;
+  // unsigned integers
+  unsigned char f = 10U;        // at least 8 bits
+  unsigned short g = 10U;       // at least 16 bits
+  unsigned h = 10U;             // at least 16 bits, typically 32
+  unsigned long i = 10UL;       // at least 32 bits
+  unsigned long long j = 10ULL; // at least 64 bits
 
-  // octal, hexadecimal and binary
-  int k = 0x10;
-  int l = 010; // octal could have been taken prefixed with 0o would have been
-               // uniform with hex & binary
-  int m = 0b01010;
+  // hexadecimal, octal, and binary literals
+  int k = 0x10;   // hexadecimal
+  int l = 010;    // octal
+  int m = 0b1010; // binary
 }
 
 // fixed integers types
 void fixed_integer_types() {
-  // signed types
-  int8_t a = 10;
-  int16_t b = 10;
-  int32_t c = 10;
-  int64_t d = 10;
+  // signed fixed-width types
+  int8_t a = 10;  // 1 byte
+  int16_t b = 10; // 2 bytes
+  int32_t c = 10; // 4 bytes
+  int64_t d = 10; // 8 bytes
 
-  // unsigned types
-  uint8_t e = 10;
-  uint16_t f = 10;
-  uint32_t g = 10;
-  uint64_t h = 10;
+  // unsigned fixed-width types
+  uint8_t e = 10;  // 1 byte
+  uint16_t f = 10; // 2 bytes
+  uint32_t g = 10; // 4 bytes
+  uint64_t h = 10; // 8 bytes
 
-  // enough to store pointer size - 32/64 bit based on platform
-  uintptr_t i = (uintptr_t)&a;
+  // pointer-sized integer types
+  intptr_t i = (intptr_t)&a;
+  uintptr_t j = (uintptr_t)&a;
 
   // TODO: using inttypes.h with stdint.h types
   // all the fixed type are typedeffed and can vary based on platform how a user
   // will know which formatting char to be used PRId32 macro makes it easy to do
   // so
-  printf("%" PRId32 "%ld", a, i);
+  printf("%" PRId32 "%" PRIdPTR, c, i);
 }
 
 void explicit_conversion() {
-  float d = 10.1;
-  // explicit integer conversion
-  int n = (int)d;
+  double d = 10.9;
+  // explicit conversion (casting) truncates the fractional part
+  int n = (int)d; // n is 10
+
+  // casting to a smaller integer type (potential data loss or wrap-around)
+  int i = 257;
+  uint8_t b = (uint8_t)i; // b is 1 (257 % 256)
 }
 
-// TODO: tell about all the implicit conversions allowed in c
-// TODO: problem with implicit conversions
 void implicit_conversion() {
+  // integer promotion: types smaller than int are promoted to int
   short a = 10;
   int b = a; // implicit conversion of short to int
+
+  // usual arithmetic conversions: lower rank types are converted to higher rank
+  int c = 5;
+  double d = 2.5;
+  double result = c + d; // c is implicitly converted to double
+
+  // potential issues: signed to unsigned comparison
+  int i = -1;
+  unsigned int j = 1;
+  // i is converted to unsigned int, becoming a very large value
+  bool is_less = (i < j); // false because -1 becomes a large unsigned value
 }
 
 void float_types() {
-  float a = 10;  // single precision - 32 bit
-  double b = 10; // double precision - 64 bit
+  float a = 10.0f;       // single precision - 32 bits
+  double b = 10.0;       // double precision - 64 bits
+  long double c = 10.0L; // extended precision - typically 80 or 128 bits
 }
 
 void bool_types() {
-  // using stdbool
+  // bool, true, and false are macros defined in stdbool.h
   bool a = true;
   bool b = false;
 
-  // if stdbool.h is not used
-  _Bool c = true;
+  // _Bool is the underlying primitive type introduced in C99
+  _Bool c = 1;
+
+  // Booleans are essentially integers; any non-zero value assigned to a bool
+  // becomes 1
+  bool d = 42; // d is 1 (true)
 }
-//integer & float overflow
+
 void overflow() {
-  // signed integer overflow
-  int a = 2147483647;
+  // signed integer overflow: Undefined Behavior
+  int a = INT_MAX;
   int b = a + 1;
 
-  // unsigned integer overflow
-  unsigned int c = 4294967295;
+  // unsigned integer overflow: Well-defined wrap-around
+  unsigned int c = UINT_MAX;
   unsigned int d = c + 1;
 
-  // float overflow
-  float e = 3.4028e+338;    //infinity is printed to mark overflow
-  float f = 3.1e-338;          //underflow
-  printf("%f\n",e);
-}
+  // floating point overflow: typically results in infinity
+  float e = FLT_MAX * 2.0f;
+  // floating point underflow: results in 0 or a subnormal number
+  float f = FLT_MIN / 1e10f;
 
-/*
-char:
-ascii at C's core - representing chars as integers
-how can unicode can be used in c (especially utf-8)
-what is null byte in char
-*/
+  printf("Float overflow: %f\n", (double)e);
+  printf("Float underflow: %e\n", (double)f);
+}
 void char_types() {
-  char a = 'A';
-  char b = '\0'; // null byte
-  char c = 0; // null byte - integer 0 is implicitly converted to null byte in
-              // ascii which is '\0'
+  char a = 'A';  // Character literals are integers (ASCII 65)
+  char b = '\0'; // Null byte, used to terminate strings
+  char c = 0;    // Integer 0 is implicitly converted to to '\0'
 
-  // TODO: char and int problem in c
   /*
-  char is internally signed char or unsigned char depending on the platform
-  though bit pattern will match with ascii for both signed and unsigned char
-  any integer operation or conversion to char will create problem due to signed
-  or unsigned char
-  */
-  // TODO: show that overflow wrapping value vs 2's complement will be different
-  // so that we can say signed/unsigned char will create problem though we still
-  // can say overflow may be platform dependent and we can not rely on it if
-  // both are same
-  char d = 255; // if signed char is used then it can not contain 255 and
-                // overflow will happen
-  printf("%c\n", d); // this does not print anything as it points to non
-                     // printable character
+   * 'char' can be signed or unsigned depending on the compiler and platform.
+   * This affects arithmetic and values > 127 (outside standard ASCII).
+   */
+  signed char sc = 127;
+  unsigned char uc = 255;
+
+  // On x86 architectures, 'char' is typically signed by default.
+  // On ARM and PowerPC, 'char' is often unsigned by default.
+  // Platform-dependent behavior for values > 127
+
+  // If char is unsigned, 255 is stored as is else it is stored as -1
+  char d = 255;
 }
 
-/*
-printing integer, float, char, bool types
-*/
 void printing() {
   int a = 10;
-  float b = 10.1;
+  float b = 10.1f;
   char c = 'A';
   bool d = true;
 
-  // how printf is variadic - is it macro or function
+  // printf is a variadic function, not a macro.
   printf("%04d %06.2f %c %d\n", a, b, c, d);
 }
 

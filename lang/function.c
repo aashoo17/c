@@ -1,93 +1,126 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// function
+// --- Prototypes ---
+void pass_by_value_demo();
+void pass_by_reference_demo();
+void return_pointers_demo();
+void static_variable_demo();
+void recursion_demo();
 
 /*
-function argument and return
-arguments passed in c function gets copied and sent to function so original
-value can never be modified this way unless we are returning back the value and
-assigning it to the same variable which was passed as argument
+ 1. PASS BY VALUE
+ Arguments are copied into the function parameter.
+ Changing 'a' inside does NOT affect the caller's 'a'.
 */
-int function_arg_ret(int arg1, int arg2) {
-  int c = arg1 + arg2;
-  return c;
+void modify_value(int a) {
+  a = a + 10;
+  printf("  Inside modify_value: a = %d\n", a);
+}
+
+void pass_by_value_demo() {
+  printf("\n--- Buy Value ---\n");
+  int x = 5;
+  printf("  Before: x = %d\n", x);
+  modify_value(x);
+  printf("  After:  x = %d (Unchanged)\n", x);
 }
 
 /*
-pointer as arg
-pointers gets copied and passed to function but as pointer work on addresses
-they still can modify the original value of the variable pointers are always 4/8
-bytes and copying them is easy they also avoid copying of bigger size data which
-can itself take many cpu cycles
-
-problems with the pointers in arg:
-1. all pointers can possibly be NULL and hence it is required that all pointer
-are checked for NULL before using them otherwise any dereference to them will
-cause segmentation fault
-
+ 2. PASS BY REFERENCE (via Pointers)
+ We pass the address of variables.
+ Changing '*ptr' modifies the ACTUAL variable in the caller.
 */
-void function_ptr_arg(int *ptr) {
+void modify_reference(int *ptr) {
   if (ptr != NULL) {
-    *ptr = *ptr + 1;
+    *ptr = *ptr + 10;
+    printf("  Inside modify_reference: *ptr = %d\n", *ptr);
   }
+}
+
+void pass_by_reference_demo() {
+  printf("\n--- Pass By Reference (Pointer) ---\n");
+  int y = 5;
+  printf("  Before: y = %d\n", y);
+  modify_reference(&y);
+  printf("  After:  y = %d (Modified)\n", y);
 }
 
 /*
-pointer return from functions
-1. pointer to stack variable is returned - this pointer will be used later when
-stack memory is freed and can corrupt memory when other variable is stored here
-2. pointer to heap memory is returned - this pointer can be used without problem
-but freeing that memory is the responsibility of the caller when left and not
-freed will cause memory leak
-3. pointer to argument of function is returned - this pointer can be used
-without problem till the lifetime of arguments but later it will cause problem
-as will try to modify the freed value
+ 3. RETURNING POINTERS
 */
-int *function_heap_ptr_ret() {
-  int *ptr = malloc(sizeof(int));
-  *ptr = 10;
-  return ptr;
+// SAFE: Returning pointer to HEAP memory
+int *get_heap_int(int value) {
+  int *p = malloc(sizeof(int));
+  if (p)
+    *p = value;
+  return p;
 }
 
-int *function_stack_ptr_ret() {
-  int local;         // local variable is stored in stack
-  int *ptr = &local; // pointer to local variable is taken
-  *ptr = 10;
-  return ptr; // pointer to local/stack variable is returned
+// UNSAFE: Returning pointer to STACK memory
+// (Modern compilers warn about this: "function returns address of local
+// variable")
+int *get_stack_int_bad() {
+  int local = 42;
+  return &local; // DANGEROUS: 'local' is destroyed when function returns!
 }
 
-int *function_arg_ptr_ret(int local) { return &local; }
+void return_pointers_demo() {
+  printf("\n--- Returning Pointers ---\n");
 
-int *outer_function() {
-  int local = 10;
-  int *ret = function_arg_ptr_ret(local);
-  return ret;
-  // local variable is freed here (i.e. its lifetime is over here) and ret
-  // variable which si returned still will point to this address dereffing it
-  // will cause segmentation fault
-}
-
-// recursive functions
-int factorial(int n) {
-  if (n == 0) {
-    return 1;
-  } else {
-    return n * factorial(n - 1);
+  // Heap example
+  int *heap_ptr = get_heap_int(100);
+  if (heap_ptr) {
+    printf("  Heap int: %d\n", *heap_ptr);
+    free(heap_ptr); // Caller is responsible for cleanup
   }
+
+  // Stack example (Do not dereference in real code!)
+  int *bad_ptr = get_stack_int_bad();
+  printf("  Stack ptr returned: %p (Dangling - accessing this is Undefined "
+         "Behavior)\n",
+         (void *)bad_ptr);
 }
 
-//prototype of function
-void prototype();
+/*
+ 4. STATIC VARIABLES
+ Static variables in functions retain their value between calls.
+ They are initialized only once.
+*/
+void count_calls() {
+  static int count = 0;
+  count++;
+  printf("  Call number: %d\n", count);
+}
+
+void static_variable_demo() {
+  printf("\n--- Static Variables ---\n");
+  count_calls();
+  count_calls();
+  count_calls();
+}
+
+/*
+ 5. RECURSION
+ Function calling itself. Must have a base case.
+*/
+int factorial(int n) {
+  if (n <= 1)
+    return 1;
+  return n * factorial(n - 1);
+}
+
+void recursion_demo() {
+  printf("\n--- Recursion ---\n");
+  int n = 5;
+  printf("  Factorial of %d is %d\n", n, factorial(n));
+}
 
 int main() {
-  // calling function
-  int a = 10;
-  // arg a can only be modified if return value of function is assigned to it
-  a = function_arg_ret(a, 20);
-}
-
-//implementation of function prototype
-void prototype() {
-  printf("prototype\n");
+  pass_by_value_demo();
+  pass_by_reference_demo();
+  return_pointers_demo();
+  static_variable_demo();
+  recursion_demo();
+  return 0;
 }

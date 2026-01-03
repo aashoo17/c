@@ -1,80 +1,121 @@
-/*
-#define
-1. define constant
-2. define function like macro
-TODO: #define vs const
-#undef
-*/
-
-// TODO: if macro id defined without giving any value what is it replaced with
-#define MACRO_IS_DEFINED // define a macro
-// TODO: use of #define over const. when ?
-#define ANOTHER_MACRO 10 // define macro and give some value
-
-#define MAX(X, Y) X > Y ? 1 : 0 // function like macro
-
-#undef ANOTHER_MACRO_DEFINED
-
-// #ifdef #ifndef #endif
-
-/*
-common way files are included checking a macro
-#ifndef MACRO_IS_DEFINED
-  #define MACRO_IS_DEFINED
-  #include <string.h>
-#endif
-*/
-
-// a struct whose one field is optional and appears only when this macro
-// MACRO_IS_DEFINED is defined
-struct Human {
-  int a;
-  int b;
-#ifdef MACRO_IS_DEFINED
-  char name[100]; // this field is available only when macro is defined
-#endif
-};
-
-// usual include call
 #include <stdio.h>
-#include <stdlib.h>
+
+// 1. CONSTANTS
+// Preprocessor constant: Text replacement. No type safety. No memory address.
+#define BUFFER_SIZE 1024
+
+// C Const: Typed variable. Has scope and memory address.
+const int kBufferSize = 1024;
 
 /*
-#if #else #elif
-these work exactly like if else if and else in c code
+ 2. FUNCTION-LIKE MACROS & SAFETY
+ Pitfall: Text substitution can mess up precedence.
+ Solution: ALWAYS wrap arguments and the entire expression in parentheses.
 */
-int x = 0;
-// TODO: can #if use regular variable instead of macro for true/false testing
-// FIXME: fix the error here
-#if ANOTHER_MACRO == 20
-    #define IF_CREATED_MACRO 
-#elif ANOTHER_MACRO == 10
-    #undef IF_CREATED_MACRO
-    #define IF_CREATED_MACRO
-#else
-    printf("%d",x);
-#endif
+// UNSAFE: MAX_BAD(1 + 2, 3) expands to 1 + 2 > 3 ? 1 + 2 : 3 => 3 > 3? ...
+// result is wrong if logic depends on grouping
+#define MAX_BAD(a, b) a > b ? a : b
 
-/*
-#line #error #pragma
-*/
-#line 10       // set this line no as 10
-#pragma c9x on // enable/disable a compiler feature using pragma macro
+// SAFER: Parentheses protect widely.
+// STILL RISKY: Side effects (e.g., MAX_SAFE(i++, j++)) double evaluate
+// arguments!
+#define MAX_SAFE(a, b) ((a) > (b) ? (a) : (b))
 
-// #error big_error //throw error using preprocessor
+void macro_safety_demo() {
+  printf("\n--- Macro Safety ---\n");
+  int x = 2, y = 3;
 
-/*
-predefined macros:
-__DATE__
-__FILE__
-__LINE__
-__STDC__
-__STDC_VERSION__
-__TIME__
-*/
+  // Basic usage works
+  printf("Max of %d, %d is %d\n", x, y, MAX_SAFE(x, y));
 
-void predefined_macros() {
-  printf("%s\t %s\t %lu\t %s", __DATE__, __FILE__, __STDC_VERSION__, __TIME__);
+  // Precedence issue with unsafe macro
+  // logical: 2 * MAX_BAD(2, 3) => 2 * 2 > 3 ? 2 : 3  => 4 > 3 ? 2 : 3 => Result
+  // 2 (Wrong! Should be 2 * 3 = 6)
+  int result_bad = 2 * MAX_BAD(2, 3);
+  printf("2 * MAX_BAD(2, 3) gives: %d (Expected 6)\n", result_bad);
+
+  int result_safe = 2 * MAX_SAFE(2, 3);
+  printf("2 * MAX_SAFE(2, 3) gives: %d (Correct)\n", result_safe);
+
+  // Side Effect Hazard
+  int i = 5, j = 10;
+  // Expands to: ((i++) > (j++) ? (i++) : (j++))
+  // j incremented TWICE!
+  int max_val = MAX_SAFE(i++, j++);
+  printf("Side effect hazard: MAX(i++, j++) returned %d, j is now %d (Expected "
+         "11)\n",
+         max_val, j);
 }
 
-int main() { predefined_macros(); }
+/*
+ 3. SPECIAL OPERATORS
+ #  : Stringify (Convert argument to string literal)
+ ## : Token Paste (Concatenate two tokens into one)
+*/
+#define STRINGIFY(x) #x
+#define VAR_NAME(name, index) name##index
+
+void special_operators_demo() {
+  printf("\n--- # and ## Operators ---\n");
+
+  printf("Stringified: %s\n", STRINGIFY(Hello World));
+
+  int val1 = 100;
+  int val2 = 200;
+  // Expands to: printf("val1: %d\n", val1);
+  printf("Value of val1: %d\n", VAR_NAME(val, 1));
+  printf("Value of val2: %d\n", VAR_NAME(val, 2));
+}
+
+/*
+ 4. MULTI-LINE MACROS
+ Use do-while(0) to swallow the semicolon and create a single block scope.
+*/
+#define LOG_ERROR(msg)                                                         \
+  do {                                                                         \
+    fprintf(stderr, "[ERROR] %s: %s\n", __func__, msg);                        \
+  } while (0)
+
+void multi_line_demo() {
+  printf("\n--- Multi-line Macro ---\n");
+  if (1)
+    LOG_ERROR("Something failed (simulated)");
+  else
+    printf("This else usage is safe due to do-while(0)\n");
+}
+
+/*
+ 5. PREDEFINED MACROS
+*/
+void predefined_info() {
+  printf("\n--- Predefined Macros ---\n");
+  printf("Date: %s\n", __DATE__);
+  printf("Time: %s\n", __TIME__);
+  printf("File: %s\n", __FILE__);
+  printf("Line: %d\n", __LINE__);
+  printf("Standard C: %d\n", __STDC__);
+}
+
+/*
+ 6. CONDITIONAL COMPILATION
+ Used for platform specific code or feature toggles.
+*/
+#define FEATURE_ENABLED 1
+
+void conditional_compilation() {
+  printf("\n--- Conditional Compilation ---\n");
+#if defined(FEATURE_ENABLED) && FEATURE_ENABLED > 0
+  printf("Feature is ENABLED\n");
+#else
+  printf("Feature is DISABLED\n");
+#endif
+}
+
+int main() {
+  macro_safety_demo();
+  special_operators_demo();
+  multi_line_demo();
+  predefined_info();
+  conditional_compilation();
+  return 0;
+}
